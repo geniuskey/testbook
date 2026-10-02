@@ -7,7 +7,8 @@
   ... (이 사이는 스크립트가 덮어쓴다)
   <!--head:end-->
 제목·장 번호는 js/common.js 의 CHAPTERS 에서 읽는다. 사이트맵과 index.html JSON-LD hasPart 도 갱신한다.
-실행: python3 tools/head.py
+실행: python3 tools/head.py            (전체 + sitemap.xml)
+      python3 tools/head.py scan bist  (해당 장만)
 """
 import json, re, pathlib, datetime
 
@@ -63,8 +64,12 @@ def head(c, meta):
         out += '<script src="https://cdn.jsdelivr.net/npm/three@0.147.0/build/three.min.js"></script>\n<script src="https://cdn.jsdelivr.net/npm/three@0.147.0/examples/js/controls/OrbitControls.js"></script>\n'
     return out
 
+import sys
+ONLY = set(sys.argv[1:])   # 인자로 slug를 주면 그 장만 갱신(사이트맵은 건너뜀)
 pat = re.compile(r"(<!--head:start (\{.*?\})-->\n)(.*?)(<!--head:end-->)", re.S)
 for c in CH:
+    if ONLY and c["slug"] not in ONLY:
+        continue
     p = ROOT / "chapters" / f"{c['slug']}.html"
     if not p.exists():
         print("missing", p.name); continue
@@ -78,6 +83,8 @@ for c in CH:
     print("ok", p.name)
 
 # sitemap
+if ONLY:
+    sys.exit(0)
 urls = [SITE] + [f"{SITE}chapters/{c['slug']}.html" for c in CH]
 (ROOT / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
     "".join(f"  <url><loc>{u}</loc><lastmod>{TODAY}</lastmod></url>\n" for u in urls) + "</urlset>\n", encoding="utf-8")
