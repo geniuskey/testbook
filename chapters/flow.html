@@ -43,6 +43,7 @@
   .st-wrap { display: grid; grid-template-columns: minmax(0, 1fr); }
   @media (min-width: 760px) { .st-wrap { grid-template-columns: 300px minmax(0, 1fr); } }
   .st-list { height: 330px; overflow-y: auto; font-family: var(--mono); font-size: 12px; border-right: 1px solid var(--border); background: var(--bg-elev); }
+  @media (max-width: 759px) { .st-list { height: 210px; border-right: 0; border-bottom: 1px solid var(--border); } }
   .st-list button { display: grid; grid-template-columns: 34px 40px minmax(0, 1fr); gap: 6px; width: 100%; text-align: left; font: inherit; background: none; border: 0; border-bottom: 1px solid var(--border); color: var(--text-dim); padding: 3px 8px; cursor: pointer; }
   .st-list button b { color: var(--accent); font-weight: 700; }
   .st-list button span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
@@ -80,7 +81,7 @@
         <rect class="f-acc-soft" x="274" y="40" width="128" height="112" rx="10"/>
         <rect class="f-acc2-soft" x="420" y="40" width="128" height="112" rx="10"/>
         <rect class="f-ok-soft" x="566" y="40" width="140" height="112" rx="10"/>
-        <path class="s-line" marker-end="url(#fl-arr)" d="M142 96H158M256 96H272M402 96H418M548 96H564"/>
+        <path class="s-line" marker-end="url(#fl-arr)" d="M142 96H158"/><path class="s-line" marker-end="url(#fl-arr)" d="M256 96H272"/><path class="s-line" marker-end="url(#fl-arr)" d="M402 96H418"/><path class="s-line" marker-end="url(#fl-arr)" d="M548 96H564"/>
         <text class="lbl-b" x="78" y="64" text-anchor="middle">웨이퍼 테스트</text>
         <text class="lbl-dim" x="78" y="86" text-anchor="middle">DC · 스캔</text>
         <text class="lbl-dim" x="78" y="104" text-anchor="middle">MBIST · 리페어</text>
@@ -278,7 +279,7 @@
         <div class="sim-controls">
           <div class="ctrl"><span>예시</span><div class="seg" id="kgd-pre"><button data-value="mono" class="on">TB-7 단일</button><button data-value="chip">칩렛 4개</button><button data-value="hbm">로직 + HBM</button></div></div>
           <label class="ctrl"><span>패키지 안 다이 수 N <output id="kgd-n-out"></output></span><input type="range" id="kgd-n" min="1" max="16" step="1" value="1"></label>
-          <label class="ctrl"><span>다이당 KGD 유출 <output id="kgd-e-out"></output></span><input type="range" id="kgd-e" min="1" max="4.5" step="0.05" value="2.5"></label>
+          <label class="ctrl"><span>다이당 KGD 유출 <output id="kgd-e-out"></output></span><input type="range" id="kgd-e" min="1" max="4.5" step="0.01" value="3.78"></label>
           <label class="ctrl"><span>다이당 조립 수율 <output id="kgd-a-out"></output></span><input type="range" id="kgd-a" min="99" max="99.99" step="0.01" value="99.9"></label>
           <label class="ctrl"><span>다이 원가 (평균) <output id="kgd-d-out"></output></span><input type="range" id="kgd-d" min="1" max="500" step="1" value="3"></label>
           <label class="ctrl"><span>패키지·인터포저·조립 <output id="kgd-p-out"></output></span><input type="range" id="kgd-p" min="1" max="1000" step="1" value="2"></label>
@@ -454,7 +455,7 @@
         <rect class="f-acc-soft" x="190" y="100" width="120" height="56" rx="8"/><text class="lbl-b" x="250" y="124" text-anchor="middle">웨이퍼 테스트</text><text class="lbl-dim" x="250" y="144" text-anchor="middle">빈·파라 맵</text>
         <rect class="f-acc-soft" x="370" y="100" width="130" height="56" rx="8"/><text class="lbl-b" x="435" y="124" text-anchor="middle">FT · SLT</text><text class="lbl-dim" x="435" y="144" text-anchor="middle">ECID로 추적</text>
         <rect class="f-ok-soft" x="560" y="100" width="140" height="56" rx="8"/><text class="lbl-b" x="630" y="124" text-anchor="middle">고객 · 현장</text><text class="lbl-dim" x="630" y="144" text-anchor="middle">반환품(RMA)</text>
-        <path class="s-line" marker-end="url(#fl-arr2)" d="M130 128H188M310 128H368M500 128H558"/>
+        <path class="s-line" marker-end="url(#fl-arr2)" d="M130 128H188"/><path class="s-line" marker-end="url(#fl-arr2)" d="M310 128H368"/><path class="s-line" marker-end="url(#fl-arr2)" d="M500 128H558"/>
         <path class="s-acc" marker-end="url(#fl-arr2)" d="M250 100V60H75V98"/>
         <text class="lbl-acc" x="162" y="52" text-anchor="middle">① 수율 고리 (YMS → 공정 수정)</text>
         <path class="s-acc2" marker-end="url(#fl-arr2)" d="M435 156V200H250V158"/>
