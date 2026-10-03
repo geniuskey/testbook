@@ -209,7 +209,7 @@
           <label class="ctrl"><span>스캔 채널 수 <output id="tt-ch-out"></output></span><input type="range" id="tt-ch" min="4" max="200" step="1" value="50"></label>
           <label class="ctrl"><span>압축 비율 R <output id="tt-r-out"></output></span><input type="range" id="tt-r" min="1" max="300" step="1" value="100"></label>
           <label class="ctrl"><span>시프트 주파수 <output id="tt-f-out"></output></span><input type="range" id="tt-f" min="10" max="400" step="5" value="100"></label>
-          <label class="ctrl"><span>패턴 수 <output id="tt-p-out"></output></span><input type="range" id="tt-p" min="3" max="5.3" step="0.01" value="4.6"></label>
+          <label class="ctrl"><span>패턴 수 <output id="tt-p-out"></output></span><input type="range" id="tt-p" min="1" max="200" step="1" value="40"></label>
           <div class="btn-row"><button class="btn primary" id="tt-tb7">TB-7 프리셋</button><button class="btn" id="tt-noc">압축 끄기</button></div>
         </div>
       </div>
@@ -597,9 +597,9 @@
   /* ================================================================ 2. 테스트 시간 계산기 */
   (function () {
     const ff = TB.range("tt-ff", (v) => fmtN(Math.pow(10, v)).trim(), draw), ch = TB.range("tt-ch", (v) => v, draw), R = TB.range("tt-r", (v) => v + "×", draw);
-    const f = TB.range("tt-f", (v) => v + " MHz", draw), pp = TB.range("tt-p", (v) => Math.round(Math.pow(10, v)).toLocaleString("en-US"), draw);
+    const f = TB.range("tt-f", (v) => v + " MHz", draw), pp = TB.range("tt-p", (v) => (v * 1000).toLocaleString("en-US"), draw);
     function calc() {
-      const N = Math.pow(10, ff()), P = Math.round(Math.pow(10, pp())), chains = ch() * R(), L = Math.ceil(N / chains), fs = f() * 1e6;
+      const N = Math.pow(10, ff()), P = pp() * 1000, chains = ch() * R(), L = Math.ceil(N / chains), fs = f() * 1e6;
       const L0 = Math.ceil(N / ch());
       return { N, P, chains, L, T: ((P + 1) * L) / fs, T0: ((P + 1) * L0) / fs, mem: P * L, mem0: P * L0, data: 2 * P * L * ch() };
     }
@@ -618,8 +618,8 @@
         const xl = X(line); ctx.strokeStyle = P.bad; ctx.setLineDash([5, 4]); ctx.lineWidth = 1.5; ctx.beginPath(); ctx.moveTo(xl, y0 + 12); ctx.lineTo(xl, y0 + 16 + rows.length * 34); ctx.stroke(); ctx.setLineDash([]);
         text(ctx, lineLbl, Math.min(xl + 4, rx - 4), y0, P.bad, xl + 120 > rx ? "right" : "left", 10.5);
       };
-      panel(14, "스캔 시간", 1e-3, 1e4, [["현재 설정", C.T, P.accent], [narrow ? "압축 없음" : "압축 없음(같은 채널)", C.T0, P.faint]], 4, "터치다운 예산 ~4 s", fmtT);
-      panel(h / 2 + 8, "채널당 벡터 (패턴 메모리)", 1e5, 1e12, [["현재 설정", C.mem, P.accent2], [narrow ? "압축 없음" : "압축 없음(같은 채널)", C.mem0, P.faint]], 1e9, "ATE ~1 Gvector", (v) => fmtN(v).trim());
+      panel(14, "스캔 시간", 1e-3, 1e3, [["현재 설정", C.T, P.accent], [narrow ? "압축 없음" : "압축 없음(같은 채널)", C.T0, P.faint]], 4, "터치다운 예산 ~4 s", fmtT);
+      panel(h / 2 + 8, "채널당 벡터 (패턴 메모리)", 1e5, 1e11, [["현재 설정", C.mem, P.accent2], [narrow ? "압축 없음" : "압축 없음(같은 채널)", C.mem0, P.faint]], 1e9, "ATE ~1 Gvector", (v) => fmtN(v).trim());
     }, { aspect: 0.5, minHeight: 280, maxHeight: 340 });
     function draw() {
       const C = calc();
@@ -634,9 +634,8 @@
       cv.redraw();
     }
     const set = (a) => { ff.set(a[0]); ch.set(a[1]); R.set(a[2]); f.set(a[3]); pp.set(a[4]); };
-    $("tt-tb7").addEventListener("click", () => set([7, 50, 100, 100, Math.log10(40000)]));
+    $("tt-tb7").addEventListener("click", () => set([7, 50, 100, 100, 40]));
     $("tt-noc").addEventListener("click", () => R.set(1));
-    pp.set(Math.log10(40000));
     draw();
   })();
 
@@ -686,7 +685,7 @@
       const arr = S.tL + CQ + PATH;
       seg(3, [[A[0], 0], [arr, 0], [arr + 1, 1], [B[1], 1]], SC.grn);
       const capOk = S.ok;
-      text(ctx, capOk ? "SE = 0 → 캡처 성공" : "SE가 아직 1 → 캡처 대신 시프트", rx - 4, y0 + rh * 3.5, capOk ? SC.grn : SC.red, "right", fs, false, 700);
+      text(ctx, capOk ? "SE = 0 → 캡처 성공" : "SE가 아직 1 → 캡처 대신 시프트", bx0 + 6, y0 + rh * 3.3, capOk ? SC.grn : SC.red, "left", fs, false, 700);
       if (!S.los) text(ctx, "OCC가 PLL에서 두 펄스", (bx0 + rx) / 2, h - 18, SC.dim, "center", 10.5);
     }, { aspect: 0.5, minHeight: 260, maxHeight: 360 });
     function draw() {
@@ -859,7 +858,7 @@
     }, { height: 204 });
     function update(msg) {
       TB.stat("bk-o-n", String(tries));
-      TB.stat("bk-o-b", "6번 (체인 테스트 1 + 이분 탐색 5)");
+      TB.stat("bk-o-b", "6번");
       TB.stat("bk-o-c", done ? "—" : cand.checked ? `셀 ${lo}~${hi} (${hi - lo + 1}개)` : "표시 꺼짐");
       TB.stat("bk-o-r", done ? (tries <= 6 ? '<span style="color:var(--ok)">최적</span>' : `${tries}번`) : reveal ? "정답 공개" : "진행 중");
       if (msg) TB.stat("bk-o-x", msg);

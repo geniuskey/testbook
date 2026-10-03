@@ -106,7 +106,7 @@
         <path class="f-acc-soft" d="M350 218L350 242L330 230Z"/><path class="s-acc" d="M330 218V242M350 230H400"/>
         <text class="lbl-acc" x="340" y="268" text-anchor="middle">VSS 쪽 다이오드 (켜짐)</text>
         <path class="s-line" d="M400 60H430M400 230H430"/><text class="lbl" x="436" y="65">VDD = 0 V</text><text class="lbl" x="436" y="235">VSS = 0 V</text>
-        <path class="s-acc2" marker-end="url(#dcc-ar)" d="M410 214C380 196 300 196 268 150"/><text class="lbl-acc2" x="300" y="190">전류</text>
+        <path class="s-acc2" marker-end="url(#dcc-ar)" d="M410 214C380 196 300 196 268 150"/><text class="lbl-acc2" x="430" y="190">전류</text>
         <path class="s-line" d="M250 135H290"/><rect class="f-elev" x="290" y="120" width="70" height="30" rx="4"/><text class="t-mono" x="325" y="140" text-anchor="middle">내부 회로</text>
         <path class="s-dash" d="M520 20V290"/>
         <text class="lbl-b" x="540" y="30">판정 (−100 µA)</text>
@@ -157,7 +157,7 @@
         <path class="s-line" d="M280 50V60M280 216V230"/><text class="t-mono" x="280" y="44" text-anchor="middle">VDDIO</text><text class="t-mono" x="280" y="246" text-anchor="middle">VSS</text>
         <rect class="f-elev" x="380" y="96" width="34" height="20" rx="3"/><text class="t-mono" x="397" y="90" text-anchor="middle">풀업 (선택)</text><path class="s-line" d="M397 116V138"/>
         <path class="s-line" d="M460 108V168M470 108V168"/><path class="s-line" d="M470 118H500V90M470 158H500V186"/>
-        <text class="t-mono" x="480" y="210">입력 버퍼 게이트</text>
+        <text class="t-mono" x="470" y="236">입력 버퍼 게이트</text>
         <path class="s-bad" marker-end="url(#dcl-ar)" d="M300 92L330 120"/><path class="s-bad" marker-end="url(#dcl-ar)" d="M300 188L330 160"/><path class="s-bad" marker-end="url(#dcl-ar)" d="M455 126L430 150"/>
         <text class="lbl-bad" x="340" y="128">누설 경로</text>
         <path class="s-dash" d="M540 20V270"/>
@@ -241,13 +241,13 @@
         <path class="s-acc" d="M60 60L70 40L78 70L86 36L94 66L102 42L110 72L118 38L126 64L134 44L142 70L150 50L160 130L170 130H260L268 175H360L368 130H440"/>
         <text class="t-mono" x="110" y="28" text-anchor="middle">동적 (수 A)</text>
         <text class="t-mono" x="215" y="122" text-anchor="middle">정지 (IDDQ)</text>
-        <text class="t-mono" x="314" y="167" text-anchor="middle">대기 (전원 게이팅)</text>
+        <text class="t-mono" x="314" y="196" text-anchor="middle">대기 (전원 게이팅)</text>
         <path class="s-dash" d="M190 130V210M240 130V210"/><text class="lbl-acc2" x="215" y="200" text-anchor="middle">측정 창</text>
         <path class="s-dash" d="M470 20V250"/>
         <text class="lbl-b" x="490" y="30">누설은 온도에 민감</text>
         <path class="s-axis" d="M510 50V210H700"/>
         <path class="s-bad" d="M510 196C560 190 600 172 640 138C665 114 685 90 700 66"/>
-        <text class="t-mono" x="510" y="228">25</text><text class="t-mono" x="600" y="228">55</text><text class="t-mono" x="690" y="228">85 °C</text>
+        <text class="t-mono" x="510" y="228">25</text><text class="t-mono" x="600" y="228">55</text><text class="t-mono" x="704" y="228" text-anchor="end">85 °C</text>
         <text class="t-mono" x="520" y="70">약 15 °C마다 ×2</text>
         <text class="t-mono" x="520" y="90">±3 °C → ±15%</text>
       </svg>
@@ -273,8 +273,8 @@
         <rect class="f-acc-soft" x="300" y="190" width="50" height="40" rx="4"/><text class="lbl-acc" x="325" y="215" text-anchor="middle">N 켜짐</text>
         <path class="s-line" d="M325 30V60M325 100V190M325 230V260M325 145H260"/><text class="lbl" x="372" y="150">B=0</text>
         <path class="s-bad" d="M180 145L192 135L204 155L216 135L228 155L240 135L252 155L260 145" stroke-width="2.5"/><text class="lbl-bad" x="220" y="122" text-anchor="middle">브리지 R_b</text>
-        <path class="s-bad" marker-end="url(#dcq-ar)" d="M100 40V130H170" stroke-dasharray="5 3"/><path class="s-bad" marker-end="url(#dcq-ar)" d="M270 160H312V250" stroke-dasharray="5 3"/>
-        <text class="lbl-bad" x="220" y="186" text-anchor="middle">I_DDQ = V_DD / (R_p + R_b + R_n)</text>
+        <path class="s-bad" marker-end="url(#dcq-ar)" d="M78 40V130H170" stroke-dasharray="5 3"/><path class="s-bad" marker-end="url(#dcq-ar)" d="M270 160H364V250" stroke-dasharray="5 3"/>
+        <text class="lbl-bad" x="220" y="288" text-anchor="middle">I_DDQ = V_DD / (R_p + R_b + R_n)</text>
         <path class="s-dash" d="M480 16V290"/>
         <text class="lbl-b" x="500" y="30">벡터마다 잰 IDDQ</text>
         <path class="s-axis" d="M510 60V250H705"/>
@@ -371,7 +371,7 @@
         <rect class="f-surface" x="20" y="90" width="80" height="60" rx="6"/><text class="lbl" x="60" y="116" text-anchor="middle">FV</text><text class="t-mono" x="60" y="134" text-anchor="middle">1.8 V</text>
         <path class="s-line" d="M100 120H140"/><rect class="f-acc-soft" x="140" y="108" width="80" height="24" rx="3"/><text class="lbl-acc" x="180" y="125" text-anchor="middle">R_s</text>
         <text class="t-mono" x="180" y="96" text-anchor="middle">범위 저항</text>
-        <path class="s-line" d="M220 120H330M280 120V160M266 160H294M266 168H294M280 168V200"/><text class="t-mono" x="300" y="176">C (핀·배선)</text>
+        <path class="s-line" d="M220 120H330M280 120V160M266 160H294M266 168H294M280 168V200"/><text class="t-mono" x="262" y="190" text-anchor="end">C (핀·배선)</text>
         <path class="s-line" d="M330 120V200"/><rect class="f-elev" x="318" y="136" width="24" height="44" rx="3"/><text class="t-mono" x="352" y="160">R_leak</text>
         <path class="s-line" d="M260 200H350"/><text class="t-mono" x="300" y="220" text-anchor="middle">VSS</text>
         <text class="lbl-dim" x="180" y="160" text-anchor="middle">I = V_Rs / R_s</text>
@@ -691,7 +691,7 @@
       text(ctx, "다이 " + (sel + 1) + " · " + (vw === "abs" ? "벡터별 IDDQ" : vw === "delta" ? "IDDQ − 다이 중앙값" : "정렬한 시그니처 (IDDQ − 중앙값)") + (reveal ? " · 정답: " + NAME[d.t] : ""), b.x - 50, by + 2, P.dim, "left", fs);
       const ch = TB.chart(ctx, b, { x: [0, NV], y: [y0, y1], series: [], hlines: hl, xTicks: [], yLabel: uname, yFmt: (v) => String(Number(v.toPrecision(3))) });
       const bw = b.w / NV;
-      vals.forEach((v, k) => { const x = b.x + k * bw + bw * 0.15, ya = ch.Y(Math.max(y0, Math.min(y1, v))), yb = ch.Y(Math.max(y0, 0)); ctx.fillStyle = (vw === "abs" ? v * unit > N.abs : v > N.dl) ? P.bad : P.accent; ctx.fillRect(x, Math.min(ya, yb), bw * 0.7, Math.max(1, Math.abs(yb - ya))); });
+      vals.forEach((v, k) => { const x = b.x + k * bw + bw * 0.15, ya = ch.Y(Math.max(y0, Math.min(y1, v))), yb = ch.Y(Math.max(y0, 0)); ctx.fillStyle = (vw === "abs" ? v * unit > N.abs : v > N.dl) ? P.bad : P.accent2; ctx.fillRect(x, Math.min(ya, yb), bw * 0.7, Math.max(1, Math.abs(yb - ya))); });
       text(ctx, vw === "sort" ? "작은 값 → 큰 값" : "벡터 1 → " + NV, b.x + b.w / 2, b.y + b.h + 14, P.dim, "center", fs);
     }, { get aspect() { const w = $("vi-cv").parentElement.clientWidth || 600; return w < 560 ? 1.35 : 0.55; }, minHeight: 360 });
     $("vi-cv").addEventListener("click", (e) => {
@@ -830,7 +830,7 @@
       const yb = 84 + it.length * rh + 14, M = [["ser", "공유 PMU 직렬"], ["gang", "공유 + 묶음"], ["ppmu", "PPMU 병렬"]], tots = M.map(([k]) => sum(items(k))), tm = Math.max(...tots);
       text(ctx, "구조별 합계", x0, yb, P.dim, "left", fs);
       M.forEach(([k, nm], i) => { const y = yb + 12 + i * 20, ww = ((bw - lw - 90) * tots[i]) / tm, on = k === mode(); text(ctx, nm, x0, y + 8, on ? P.text : P.dim, "left", fs - 1, false, on ? 700 : 400); ctx.fillStyle = on ? P.accent : soft(P.accent, 0.65); ctx.fillRect(x0 + lw, y + 2, Math.max(1, ww), 13); text(ctx, tots[i].toFixed(0) + " ms", x0 + lw + ww + 6, y + 8, P.dim, "left", fs - 1, true); });
-    }, { get aspect() { const w = $("bg-cv").parentElement.clientWidth || 600; return w < 560 ? 1.35 : 0.55; }, minHeight: 380 });
+    }, { get aspect() { const w = $("bg-cv").parentElement.clientWidth || 600; return w < 560 ? 1.35 : 0.45; }, minHeight: 360 });
     function upd() {
       const t = sum(items(mode()));
       TB.stat("bg-o-t", t.toFixed(1) + " <small>ms</small>");
