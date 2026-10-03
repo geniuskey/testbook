@@ -97,7 +97,7 @@
         <defs><marker id="sc-ar2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="context-stroke"/></marker></defs>
         <text class="lbl-b" x="20" y="24">mux-D 스캔 FF</text>
         <path class="f-acc2-soft" d="M90 50L130 66V134L90 150Z"/><text class="lbl-acc2" x="96" y="104">MUX</text>
-        <text class="lbl" x="64" y="76">D</text><text class="lbl" x="58" y="132">SI</text>
+        <text class="lbl" x="34" y="66">D</text><text class="lbl" x="34" y="122">SI</text>
         <path class="s-line" d="M30 72H90M30 128H90"/>
         <text class="lbl-dim" x="96" y="66">0</text><text class="lbl-dim" x="96" y="144">1</text>
         <path class="s-acc" d="M110 186V144"/><text class="lbl-acc" x="96" y="204">SE</text>
@@ -239,7 +239,7 @@
         <path class="s-acc" d="M70 50H260L290 70H700"/>
         <path class="s-line" d="M70 104H90V84H110V104H150V84H170V104H210V84H230V104H480V84H492V104H516V84H528V104H700"/>
         <text class="lbl-dim" x="140" y="126" text-anchor="middle">느린 시프트 (10 ns)</text>
-        <text class="lbl-acc" x="486" y="78" text-anchor="middle">론치</text><text class="lbl-acc2" x="560" y="78">캡처</text>
+        <text class="lbl-acc" x="486" y="62" text-anchor="middle">론치</text><text class="lbl-acc2" x="530" y="62">캡처</text>
         <path class="s-dash" d="M486 40V112M522 40V112"/><text class="lbl-dim" x="504" y="126" text-anchor="middle">357 ps</text>
         <text class="lbl-dim" x="300" y="44">SE는 여유 있게 내린다</text>
         <path class="s-dash" d="M20 140H700"/>
@@ -249,7 +249,7 @@
         <path class="s-line" d="M70 242H90V222H110V242H150V222H170V242H210V222H230V242H330V222H350V242H460V222H472V242H496V222H508V242H700"/>
         <text class="lbl-acc" x="466" y="216" text-anchor="end">론치=마지막 시프트</text><text class="lbl-acc2" x="514" y="216">캡처</text>
         <path class="s-dash" d="M466 176V250M502 176V250"/>
-        <text class="lbl-bad" x="540" y="186">SE가 357 ps 안에 0이 되어야</text>
+        <text class="lbl-bad" x="540" y="182">SE: 357 ps 안에 0</text>
       </svg>
       <figcaption><b>LOC와 LOS.</b> LOC는 SE를 느긋하게 바꾸고 기능 모드에서 두 펄스를 쏜다. LOS는 마지막 시프트가 론치이므로 SE가 론치와 캡처 사이 한 주기 안에 칩 전체에서 바뀌어야 한다. 두 경우 모두 빠른 펄스는 OCC가 PLL 클록에서 골라 낸다.</figcaption>
     </figure>
