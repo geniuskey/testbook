@@ -517,6 +517,7 @@
       update(msg);
     }
     const cv = TB.canvas($("sc-cv"), (ctx, w, h) => {
+      if (!cells) return;
       const P = TB.palette(), narrow = w < 520, lw = narrow ? 30 : 46, rw = narrow ? 28 : 46;
       const cw = (w - lw - rw) / NF, top = 66, rh = narrow ? 42 : 48, bs = Math.min(cw * 0.7, 34);
       const u = anim ? Math.min(1, anim.u) : 1, ease = 1 - Math.pow(1 - u, 3);
