@@ -229,7 +229,7 @@
         <div class="stat"><span class="k">유출 (실제 Fmax &lt; 판정 등급)</span><span class="v" id="sp-o-e">—</span></div>
         <div class="stat"><span class="k">내준 성능 (실제 등급 &gt; 판매 등급)</span><span class="v" id="sp-o-gv">—</span></div>
       </div>
-      <div class="sim-note">해볼 것: ① TB-7 경계(3.2/2.8/2.4 GHz)에서 A·B·C가 약 13/74/13%인 것을 확인한다. 그림의 경계선은 끌어서 옮길 수 있다. ② A 수요 상한을 5%로 내리면 남는 A가 B로 다운빈되고 매출이 준다. 이때 A 경계를 올려 더 빠른 칩만 A로 파는 것이 나은지 따져 보자(이 모델에서는 등급별 가격이 고정이다). ③ 측정 잡음을 0.03 GHz로 올리면 경계 근처에서 유출(검은 점)이 생긴다. 가드밴드를 잡음의 약 2~3배로 두면 유출이 거의 사라지는 대신 내준 성능이 늘어난다. ④ 하베스팅을 켜면 버리던 다이 일부가 매출이 된다. (가정: 양품 다이 663개/웨이퍼(780 × 85%), 가격 A $48, B $36, C $22, 6코어 등급 $15, 기능 불량의 30%가 CPU 코어 하나에만 결함, 수요 상한 30%는 제약 없음과 같다.)</div>
+      <div class="sim-note">해볼 것: ① TB-7 경계(3.2/2.8/2.4 GHz)에서 A·B·C가 약 13/74/13%인 것을 확인한다. 그림의 경계선은 끌어서 옮길 수 있다. ② A 수요 상한을 5%로 내리면 남는 A가 B로 다운빈되고 매출이 준다. 이때 A 경계를 올려 더 빠른 칩만 A로 파는 것이 나은지 따져 보자(이 모델에서는 등급별 가격이 고정이다). ③ 측정 잡음이 20 MHz뿐인데도 경계 근처에서 유출(축 위의 검은 점)이 웨이퍼당 십여 개, 1% 이상 생긴다. 가드밴드를 잡음의 약 2~3배(40~60 MHz)로 두면 유출이 거의 사라지는 대신 내준 성능이 늘어난다. ④ 하베스팅을 켜면 버리던 다이 일부가 매출이 된다. (가정: 양품 다이 663개/웨이퍼(780 × 85%), 가격 A $48, B $36, C $22, 6코어 등급 $15, 기능 불량의 30%가 CPU 코어 하나에만 결함, 수요 상한 30%는 제약 없음과 같다.)</div>
     </div>
   </section>
 
@@ -316,7 +316,7 @@
         <div class="stat"><span class="k">PAT 수율 손실</span><span class="v" id="pat-o-y">—</span></div>
         <div class="stat"><span class="k">선택 웨이퍼 한계</span><span class="v" id="pat-o-l">—</span></div>
       </div>
-      <div class="sim-note">해볼 것: ① 기본(동적, 중앙값·IQR, 6σ)에서 잠재 불량 대부분이 잡히고 정상 다이 손실은 0.1% 안팎인 것을 확인한다. 위 그림의 웨이퍼 열을 누르면 아래에 그 웨이퍼의 히스토그램과 한계가 나온다. ② "정적 PAT"로 바꾸면 한계가 한 줄이 되어 평균이 낮은 웨이퍼의 이상치를 놓친다. 웨이퍼 간 변동을 0으로 줄이면 두 방식의 차이가 사라진다. ③ "평균·σ"로 바꾸면 측정 튐 몇 개가 σ를 부풀려 한계가 위로 날아가고 거의 아무것도 못 잡는다. 측정 튐을 끄면 다시 비슷해진다. 견고 통계를 쓰는 이유다. (가정: 25장 × 663개 합격 다이, IDDQ 중앙값 30 mA·웨이퍼 안 변동 약 8%, 잠재 불량 0.2%, 측정 튐은 로트당 약 6개로 80~200 mA, 규격 상한 60 mA를 넘는 값은 규격 불량으로 따로 센다.)</div>
+      <div class="sim-note">해볼 것: ① 기본(동적, 중앙값·IQR, 6σ)에서 잠재 불량의 약 3분의 2가 잡히고 정상 다이 손실은 거의 0인 것을 확인한다. 위 그림의 웨이퍼 열을 누르면 아래에 그 웨이퍼의 히스토그램과 한계가 나온다. ② "정적 PAT"로 바꾸면 한계가 한 줄이 되어 평균이 낮은 웨이퍼의 이상치를 놓친다. 웨이퍼 간 변동을 0으로 줄이면 두 방식의 차이가 사라진다. ③ "평균·σ"로 바꾸면 측정 튐이 섞인 웨이퍼에서 σ가 부풀어 한계가 위로 날아가고(↑ 표시) 그 웨이퍼의 이상치를 놓친다. 정적 PAT와 겹치면 거의 아무것도 못 잡는다. 측정 튐을 끄면 두 통계가 다시 비슷해진다. 견고 통계를 쓰는 이유다. (가정: 25장 × 663개 합격 다이, IDDQ 중앙값 30 mA·웨이퍼 안 변동 약 8%, 잠재 불량 0.2%, 측정 튐은 로트당 약 6개로 80~200 mA, 규격 상한 60 mA를 넘는 값은 규격 불량으로 따로 센다.)</div>
     </div>
     <div class="callout warn"><strong>PAT의 값은 수율로 치른다</strong>
       <p>±6σ는 정규 분포라면 10억 개에 2개만 벗어나는 넓은 한계다. 그래도 실제 분포의 꼬리는 정규보다 두꺼워 정상 칩이 조금씩 걸린다. AEC-Q001은 PAT로 버리는 비율을 감시하고, 그 비율이 갑자기 늘면 공정 이상으로 보고 조사하라고 한다. k를 줄이면 잠재 불량을 더 잡지만 정상 칩도 더 버린다. 결국 PAT의 k도 <a href="limits.html">10장</a>의 가드밴드와 같은 품질·수율 맞바꿈이다.</p></div>
@@ -368,7 +368,7 @@
           <div class="legend"><span><i style="background:var(--bad)"></i>불량 다이</span><span><i style="background:var(--warn)"></i>GDBN으로 버린 합격 다이</span><span><i style="background:transparent;border:2px solid var(--accent-2)"></i>잠재 불량(정답)</span></div>
         </div>
         <div class="sim-controls">
-          <label class="ctrl"><span><i class="nm">기준: 나쁜 이웃 ≥ k</i> <output id="gd-k-out"></output></span><input type="range" id="gd-k" min="1" max="8" step="1" value="4"></label>
+          <label class="ctrl"><span><i class="nm">기준: 나쁜 이웃 ≥ k</i> <output id="gd-k-out"></output></span><input type="range" id="gd-k" min="1" max="8" step="1" value="5"></label>
           <label class="ctrl"><span><i class="nm">잠재 결함 / 치명 결함 비</i> <output id="gd-r-out"></output></span><input type="range" id="gd-r" min="0.01" max="0.1" step="0.005" value="0.04"></label>
           <div class="ctrl"><span>군집 세기</span><div class="seg" id="gd-cl"><button data-value="0">없음</button><button data-value="0.6" class="on">보통</button><button data-value="0.9">강함</button></div></div>
           <label class="check"><input type="checkbox" id="gd-frac"> 이웃 수로 나눈 비율로 판정 (가장자리 보정)</label>
@@ -468,8 +468,8 @@
     <div class="casefile">
       <div class="tag"><b>TB-7 TEST PLAN</b><span>테스트 계획서 · 12장</span></div>
       <h4>하드 빈 8개, 속도 등급 13/74/13%, DPAT ±6σ + GDBN</h4>
-      <p>TB-7은 이 책 공통의 하드 빈 8개(1 합격, 2 연속성, 3 누설, 4 기능·스캔, 5 속도, 6 메모리, 7 파라메트릭, 8 전원 단락)를 쓰고, 그 아래에 원인별 소프트 빈을 둔다. 웨이퍼 테스트는 연속성·전원 단락을 맨 앞에 고정하고 나머지는 실패 확률/시간 비로 정렬해 기대 테스트 시간을 줄인다. 파이널 테스트의 속도 등급은 Fmax 정규 분포(평균 3.0, σ 0.18 GHz)에서 빈 A(≥ 3.2 GHz) 약 13%, 빈 B(2.8~3.2) 약 74%, 빈 C(2.4~2.8) 약 13%로 나온다. A 수요가 모자라면 B로 다운빈한다. 번인을 끈 뒤의 잠재 결함 스크린으로 IDDQ와 Vmin에 웨이퍼 단위 DPAT(중앙값 ± 6σ<sub>robust</sub>)를, 웨이퍼 맵에 GDBN(8 이웃 중 불량 4개 이상)을 적용한다. 두 스크린의 수율 비용은 합쳐 1% 안쪽으로 관리하고, 그 비율이 튀면 공정 이상으로 조사한다. 빈 2는 웨이퍼당 2%를 넘을 때 1회 재테스트한다.</p>
-      <div class="clue"><div><b>이 장의 결정</b>하드 빈 8개 + 소프트 빈, 연속성·단락 고정 후 p/t 순서, 속도 등급 A/B/C와 다운빈, IDDQ·Vmin DPAT ±6σ<sub>robust</sub>, GDBN k = 4, 빈 2 재테스트 1회.</div><div><b>근거 숫자</b>P(A) = 1 − Φ(1.11) ≈ 13%, P(B) ≈ 74%. 6σ<sub>robust</sub> = 6 × IQR/1.35. GDBN은 무작위로 버리는 것보다 잠재 불량을 수 배 효율적으로 고른다(군집이 있을 때).</div><div><b>남은 문제</b>이 모든 테스트와 스크린의 비용은 개당 얼마이고, 유출 비용과 어디서 균형을 이루는가(13장)?</div></div>
+      <p>TB-7은 이 책 공통의 하드 빈 8개(1 합격, 2 연속성, 3 누설, 4 기능·스캔, 5 속도, 6 메모리, 7 파라메트릭, 8 전원 단락)를 쓰고, 그 아래에 원인별 소프트 빈을 둔다. 웨이퍼 테스트는 연속성·전원 단락을 맨 앞에 고정하고 나머지는 실패 확률/시간 비로 정렬해 기대 테스트 시간을 줄인다. 파이널 테스트의 속도 등급은 Fmax 정규 분포(평균 3.0, σ 0.18 GHz)에서 빈 A(≥ 3.2 GHz) 약 13%, 빈 B(2.8~3.2) 약 74%, 빈 C(2.4~2.8) 약 13%로 나온다. A 수요가 모자라면 B로 다운빈한다. 번인을 끈 뒤의 잠재 결함 스크린으로 IDDQ와 Vmin에 웨이퍼 단위 DPAT(중앙값 ± 6σ<sub>robust</sub>)를, 웨이퍼 맵에 GDBN(8 이웃 중 불량 5개 이상)을 적용한다. 두 스크린의 수율 비용은 합쳐 약 1% 안팎으로 관리하고, 그 비율이 튀면 공정 이상으로 조사한다. 빈 2는 웨이퍼당 2%를 넘을 때 1회 재테스트한다.</p>
+      <div class="clue"><div><b>이 장의 결정</b>하드 빈 8개 + 소프트 빈, 연속성·단락 고정 후 p/t 순서, 속도 등급 A/B/C와 다운빈, IDDQ·Vmin DPAT ±6σ<sub>robust</sub>, GDBN k = 5, 빈 2 재테스트 1회.</div><div><b>근거 숫자</b>P(A) = 1 − Φ(1.11) ≈ 13%, P(B) ≈ 74%. 6σ<sub>robust</sub> = 6 × IQR/1.35. GDBN k = 5는 합격 다이의 약 1%를 버리며, 무작위로 버리는 것보다 잠재 불량을 2~4배 효율적으로 고른다(군집이 있을 때).</div><div><b>남은 문제</b>이 모든 테스트와 스크린의 비용은 개당 얼마이고, 유출 비용과 어디서 균형을 이루는가(13장)?</div></div>
     </div>
   </section>
 
@@ -627,11 +627,11 @@
       view = WM.draw(ctx, W, mapBox, { fill, hi });
       text(ctx, scope() === "lot" ? "맵: 첫 웨이퍼" : "웨이퍼 #" + seed, 8, 12, P.dim, "left", 11);
       // 파레토
-      const B = nr ? { x: 40, y: ms + 24, w: w - 40 - 40, h: h - ms - 24 - 40 } : { x: ms + 50, y: 24, w: w - ms - 50 - 44, h: h - 24 - 50 };
+      const B = nr ? { x: 40, y: ms + 34, w: w - 40 - 40, h: h - ms - 24 - 40 } : { x: ms + 50, y: 34, w: w - ms - 50 - 44, h: h - 34 - 50 };
       const items = []; for (let b = 2; b <= 8; b++) items.push({ b, c: S.cnt[b] }); items.sort((a, b) => b.c - a.c);
       const tot = items.reduce((s, x) => s + x.c, 0) || 1, max = Math.max(1, items[0].c);
       ctx.strokeStyle = P.axis; ctx.beginPath(); ctx.moveTo(B.x, B.y); ctx.lineTo(B.x, B.y + B.h); ctx.lineTo(B.x + B.w, B.y + B.h); ctx.lineTo(B.x + B.w, B.y); ctx.stroke();
-      text(ctx, "불량 다이 수", B.x, B.y - 12, P.dim, "left", 11); text(ctx, "누적 %", B.x + B.w, B.y - 12, P.dim, "right", 11);
+      text(ctx, "불량 다이 수", B.x, B.y - 22, P.dim, "left", 11); text(ctx, "누적 %", B.x + B.w, B.y - 22, P.dim, "right", 11);
       [0, 0.5, 1].forEach((f) => { text(ctx, String(Math.round(max * f)), B.x - 4, B.y + B.h - f * B.h, P.dim, "right", 10, true); text(ctx, Math.round(f * 100) + "", B.x + B.w + 4, B.y + B.h - f * B.h, P.dim, "left", 10, true); });
       const bw = B.w / items.length; bars = []; let cum = 0; const line = [];
       items.forEach((it, i) => {
@@ -820,12 +820,12 @@
     const gK = TB.range("gd-k", (v) => v + "개", upd), gR = TB.range("gd-r", (v) => v.toFixed(3), () => { agg = null; upd(); });
     const cl = TB.seg("gd-cl", () => { agg = null; gen(); upd(); });
     const frac = $("gd-frac"), truth = $("gd-truth"); frac.addEventListener("change", () => { agg = null; upd(); }); truth.addEventListener("change", () => cv.redraw());
-    const base = 1 - Math.exp(-W.area * 0.2);
+    const lam0 = W.area * 0.2;
     let seed = 4, cur = null, sel = -1, view = null, agg = null, flags = null, layout = null;
     const NB = []; W.dies.forEach((d) => { const a = []; for (let dj = -1; dj <= 1; dj++) for (let di = -1; di <= 1; di++) if (di || dj) a.push(W.k(d.i + di, d.j + dj)); NB.push(a); });
     function make(s) {
-      const c = Number(cl()), m = WM.map(W, { d0: 0.2, seed: s, layers: c > 0 ? [{ p: "cluster", s: c, n: 3, sigma: 16, bin: 4 }] : [] });
-      const lp = new Float32Array(W.n); for (let k = 0; k < W.n; k++) lp[k] = m.fail[k] ? 0 : Math.min(1, gR() * (base + m.p[k]));
+      const c = Number(cl()), m = WM.map(W, { d0: 0.2, seed: s, layers: c > 0 ? [{ p: "cluster", s: c, n: 3, sigma: 12, bin: 4 }] : [] });
+      const lp = new Float32Array(W.n); for (let k = 0; k < W.n; k++) lp[k] = m.fail[k] ? 0 : Math.min(1, gR() * (lam0 - Math.log(Math.max(0.02, 1 - m.p[k]))));
       return { m, lp };
     }
     const badN = (m, k) => { let b = 0, e = 0; NB[k].forEach((q) => { if (q >= 0) { e++; b += m.fail[q]; } }); return [b, e]; };
@@ -869,14 +869,14 @@
       if (!agg) return;
       const cb = nr ? { x: pane.x + zw + 12 + 34, y: zb.y + 64, w: pane.w - zw - 12 - 34 - 6, h: pane.h - 64 - 44 } : { x: pane.x + 34, y: zb.y + zw + 80, w: pane.w - 40, h: pane.h - zw - 80 - 40 };
       if (cb.h < 40 || cb.w < 60) return;
-      const mc = Math.max(0.05, ...agg.map((r) => r.cost)) * 1.1;
+      const ag = agg.filter((r) => r.K >= 2), mc = Math.max(0.02, ...ag.map((r) => r.cost)) * 1.1;
       const X = (v) => cb.x + (v / mc) * cb.w, Y = (v) => cb.y + cb.h - v * cb.h;
       ctx.strokeStyle = P.axis; ctx.beginPath(); ctx.moveTo(cb.x, cb.y); ctx.lineTo(cb.x, cb.y + cb.h); ctx.lineTo(cb.x + cb.w, cb.y + cb.h); ctx.stroke();
-      ctx.strokeStyle = P.faint; ctx.setLineDash([3, 3]); ctx.beginPath(); ctx.moveTo(X(0), Y(0)); ctx.lineTo(X(Math.min(mc, 1)), Y(Math.min(mc, 1))); ctx.stroke(); ctx.setLineDash([]);
+      ctx.strokeStyle = P.faint; ctx.setLineDash([3, 3]); ctx.beginPath(); ctx.moveTo(X(0), Y(0)); ctx.lineTo(X(mc), Y(mc)); ctx.stroke(); ctx.setLineDash([]);
       text(ctx, "포착률", cb.x - 4, cb.y - 8, P.dim, "right", 10); text(ctx, "100%", cb.x - 4, Y(1), P.dim, "right", 9, true); text(ctx, "0", cb.x - 4, Y(0), P.dim, "right", 9, true);
       text(ctx, "수율 비용 (25장) → " + pct(mc, 1), cb.x + cb.w, cb.y + cb.h + 12, P.dim, "right", 10);
-      ctx.strokeStyle = P.accent; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(X(0), Y(0)); agg.slice().reverse().forEach((r) => ctx.lineTo(X(r.cost), Y(r.cap))); ctx.stroke();
-      agg.forEach((r) => { const on = r.K === gK(); ctx.fillStyle = on ? P.accent : P.bg; ctx.strokeStyle = P.accent; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.arc(X(r.cost), Y(r.cap), on ? 5 : 3, 0, 7); ctx.fill(); ctx.stroke(); if (on || r.K === 1 || r.K === 8) text(ctx, "k=" + r.K, X(r.cost) + 6, Y(r.cap) + (r.K === 1 ? 8 : -8), P.text, "left", 10, true); });
+      ctx.strokeStyle = P.accent; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(X(0), Y(0)); ag.slice().reverse().forEach((r) => ctx.lineTo(X(r.cost), Y(r.cap))); ctx.stroke();
+      ag.forEach((r) => { const on = r.K === gK(); ctx.fillStyle = on ? P.accent : P.bg; ctx.strokeStyle = P.accent; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.arc(X(r.cost), Y(r.cap), on ? 5 : 3, 0, 7); ctx.fill(); ctx.stroke(); if (on || r.K === 2 || r.K === 8) text(ctx, "k=" + r.K, X(r.cost) + 6, Y(r.cap) + (r.K === 2 ? 8 : -8), P.text, "left", 10, true); });
     }, { get aspect() { const w = $("gd-cv").parentElement.clientWidth || 600; return w < 560 ? (w + 190) / w : 0.56; }, minHeight: 360 });
     $("gd-cv").addEventListener("click", (e) => { if (!view) return; const [x, y] = cpos($("gd-cv"), e); const k = view.at(x, y); if (k >= 0) { sel = k; cv.redraw(); } });
     function upd() {
@@ -891,8 +891,9 @@
       TB.stat("gd-o-lift", r.lift.toFixed(1) + "배");
       cv.redraw();
     }
-    $("gd-new").addEventListener("click", () => { seed++; sel = -1; gen(); upd(); });
-    gen(); upd();
+    $("gd-new").addEventListener("click", () => { seed++; sel = -1; gen(); upd(); pickSel(); });
+    function pickSel() { if (sel < 0 && flags) { const k = flags.indexOf(1); sel = k; cv.redraw(); } }
+    gen(); upd(); pickSel();
   })();
 
   /* ======================================================= 6. 다변량 */
