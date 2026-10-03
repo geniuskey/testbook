@@ -215,7 +215,6 @@
       <div class="sim-body">
         <div class="sim-view"><canvas id="hg-cv"></canvas>
           <div class="legend"><span><i style="background:var(--accent)"></i>측정(추정)</span><span><i style="background:var(--text-faint)"></i>실제 값</span><span><i style="background:var(--bad)"></i>누락 코드</span><span><i style="background:var(--accent-2)"></i>이론 1/√n</span></div>
-          <div class="hint">히스토그램이나 DNL 칸을 누르면 그 코드를 누락시키거나 되살린다</div>
         </div>
         <div class="sim-controls">
           <div class="ctrl"><span>분해능</span><div class="seg" id="hg-bits"><button data-value="6" class="on">6비트</button><button data-value="7">7비트</button><button data-value="8">8비트</button></div></div>
@@ -235,7 +234,7 @@
         <div class="stat"><span class="k">찾은 누락 코드 / 실제</span><span class="v" id="hg-o-m">—</span></div>
         <div class="stat"><span class="k">판정 (DNL ±0.9, INL ±2)</span><span class="v" id="hg-o-v">—</span></div>
       </div>
-      <div class="sim-note">해볼 것: ① 코드당 샘플을 4개로 줄이면 측정 DNL이 실제와 크게 어긋나고, 멀쩡한 코드가 누락 코드로 오판되기도 한다. 오른쪽(좁은 화면에서는 맨 아래) 그래프에서 오차가 1/√n을 따라 줄어드는 것을 확인하자. ② "휜 램프"는 램프에 2% 활 모양 비선형을 넣은 것이다. ADC는 그대로인데 INL이 크게 나온다. 측정기의 비선형성이 DUT의 결함처럼 보이는 경우다. ③ 사인파는 원래 끝 코드에 히트가 몰리지만 보정 계산 뒤의 DNL은 평평하다. 중앙 코드의 오차가 가장 크다는 점도 보자. ④ 전이 잡음을 1 LSB로 올리면 누락 코드가 이웃 코드에 묻혀 덜 깊게 보인다. (모델: 코드 폭 = 1 + σ·N(0,1)을 안쪽 코드에 주고 전체 폭을 정규화. 샘플은 위상이 무작위인 사인파 또는 램프, 끝 코드는 오버드라이브로 포화. 코히런트 사인을 쓰면 실제 오차는 이보다 조금 작다.)</div>
+      <div class="sim-note">해볼 것: ⓪ 히스토그램이나 DNL 칸을 누르면 그 코드를 누락시키거나 되살린다. ① 코드당 샘플을 4개로 줄이면 측정 DNL이 실제와 크게 어긋나고, 멀쩡한 코드가 누락 코드로 오판되기도 한다. 오른쪽(좁은 화면에서는 맨 아래) 그래프에서 오차가 1/√n을 따라 줄어드는 것을 확인하자. ② "휜 램프"는 램프에 2% 활 모양 비선형을 넣은 것이다. ADC는 그대로인데 INL이 크게 나온다. 측정기의 비선형성이 DUT의 결함처럼 보이는 경우다. ③ 사인파는 원래 끝 코드에 히트가 몰리지만 보정 계산 뒤의 DNL은 평평하다. 중앙 코드의 오차가 가장 크다는 점도 보자. ④ 전이 잡음을 1 LSB로 올리면 누락 코드가 이웃 코드에 묻혀 덜 깊게 보인다. (모델: 코드 폭 = 1 + σ·N(0,1)을 안쪽 코드에 주고 전체 폭을 정규화. 샘플은 위상이 무작위인 사인파 또는 램프, 끝 코드는 오버드라이브로 포화. 코히런트 사인을 쓰면 실제 오차는 이보다 조금 작다.)</div>
     </div>
     <div class="callout tip"><strong>히스토그램이 보지 못하는 것</strong> 히스토그램은 각 코드가 몇 번 나왔는지만 센다. 언제 나왔는지는 버린다. 그래서 코드가 순간적으로 엉뚱한 값으로 튀는 <span class="term">스파클 코드</span><span class="en">(Sparkle code)</span>나, 입력 주파수가 높을 때만 생기는 동적 오차는 잘 드러나지 않는다. 이런 동적 특성은 다음 절의 FFT로 본다.</div>
   </section>
@@ -501,7 +500,7 @@
       <div class="sim-body side">
         <div class="sim-view"><canvas id="jt-cv"></canvas></div>
         <div class="sim-controls">
-          <label class="ctrl"><span>조리개 지터 σ<sub>j</sub> <output id="jt-sj-out"></output></span><input type="range" id="jt-sj" min="-14" max="-11" step="0.05" value="-12"></label>
+          <label class="ctrl"><span>조리개 지터 σⱼ <output id="jt-sj-out"></output></span><input type="range" id="jt-sj" min="-14" max="-11" step="0.05" value="-12"></label>
           <label class="ctrl"><span>입력 주파수 <output id="jt-fin-out"></output></span><input type="range" id="jt-fin" min="5" max="10" step="0.02" value="8"></label>
           <label class="ctrl"><span>ADC 분해능 <output id="jt-bits-out"></output></span><input type="range" id="jt-bits" min="6" max="18" step="1" value="12"></label>
           <label class="check"><input type="checkbox" id="jt-anim" checked> 샘플링 순간 흔들기(과장)</label>
@@ -540,7 +539,7 @@
     <figure class="diagram">
       <svg viewBox="0 0 720 280" role="img" aria-label="SerDes 송신기와 수신기의 구성과 세 가지 루프백 경로">
         <defs><marker id="mx-ar4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="context-stroke"/></marker></defs>
-        <rect class="f-acc-soft" x="14" y="14" width="500" height="244" rx="12"/>
+        <rect class="f-acc-soft" x="14" y="14" width="412" height="244" rx="12"/>
         <text class="lbl-acc" x="28" y="36">TB-7 SerDes 레인 (칩 안)</text>
         <text class="lbl-b" x="28" y="66">송신</text>
         <rect class="f-elev" x="28" y="76" width="100" height="44" rx="6"/><text class="lbl" x="78" y="103" text-anchor="middle">PRBS 발생</text>
@@ -561,7 +560,7 @@
         <text class="lbl-dim" x="568" y="178">감쇠기로 TX→RX</text>
         <text class="lbl-dim" x="530" y="40">① 병렬(디지털) 루프백</text>
         <text class="lbl-dim" x="530" y="60">② 근단 직렬 루프백</text>
-        <text class="lbl-dim" x="28" y="246">테스터는 시작·정지와 오류 카운터만 읽는다 (JTAG/IJTAG, 8장)</text>
+        <text class="lbl-dim" x="28" y="246">테스터는 시작·정지와 오류 수만 읽는다 (IJTAG, 8장)</text>
       </svg>
       <figcaption><b>루프백 경로.</b> ①은 아날로그 회로를 건너뛰어 디지털 논리만 본다. ②는 칩 안에서 드라이버 직전·수신기 직후를 이어 직렬화기와 CDR까지 본다. ③은 패키지 핀과 로드보드 배선까지 포함해 실제 사용에 가장 가깝다. 경로가 길수록 많이 보지만, 송신과 수신이 서로의 약점을 가릴 수 있다는 한계는 같다.</figcaption>
     </figure>
@@ -652,14 +651,13 @@
       <div class="sim-head"><span class="sim-tag">SIMULATOR</span><h3>아이 다이어그램과 BER: 16 Gb/s 루프백</h3></div>
       <div class="sim-body">
         <div class="sim-view scope"><canvas id="ey-cv"></canvas>
-          <div class="hint">아이 화면을 누르면 샘플 위치와 판정 전압이 옮겨진다</div>
         </div>
         <div class="sim-controls">
           <div class="ctrl"><span>패턴</span><div class="seg" id="ey-pat"><button data-value="7" class="on">PRBS7</button><button data-value="9">PRBS9</button></div></div>
           <label class="ctrl"><span>채널 손실 (8 GHz) <output id="ey-loss-out"></output></span><input type="range" id="ey-loss" min="0" max="14" step="0.5" value="6"></label>
           <label class="ctrl"><span>무작위 지터 RJ <output id="ey-rj-out"></output></span><input type="range" id="ey-rj" min="0" max="4" step="0.1" value="1.2"></label>
           <label class="ctrl"><span>전압 잡음 <output id="ey-vn-out"></output></span><input type="range" id="ey-vn" min="0" max="50" step="1" value="12"></label>
-          <label class="ctrl"><span>샘플 위치 <output id="ey-ph-out"></output></span><input type="range" id="ey-ph" min="0" max="1" step="0.01" value="0.62"></label>
+          <label class="ctrl"><span>샘플 위치 <output id="ey-ph-out"></output></span><input type="range" id="ey-ph" min="0" max="1" step="0.01" value="0.5"></label>
           <label class="ctrl"><span>판정 전압 <output id="ey-th-out"></output></span><input type="range" id="ey-th" min="-120" max="120" step="2" value="0"></label>
           <div class="btn-row"><button class="btn primary" id="ey-best">최적점 찾기</button><button class="btn" id="ey-re">새 파형</button></div>
         </div>
@@ -671,7 +669,7 @@
         <div class="stat"><span class="k">이 BER 확인 시간 (95%)</span><span class="v" id="ey-o-t">—</span></div>
         <div class="stat"><span class="k">판정</span><span class="v" id="ey-o-v">—</span></div>
       </div>
-      <div class="sim-note">해볼 것: ① 채널 손실을 0에서 12 dB까지 올리며 눈이 ISI로 닫히는 것을 보자. 1차 채널은 신호를 늦추기도 하므로 최적 샘플 위치가 오른쪽으로 밀린다. ② "최적점 찾기"를 누른 뒤 RJ를 1 ps에서 3 ps로 키우면, 눈은 아직 열려 보이는데 욕조의 바닥이 좁아지고 BER이 수십 자리 나빠진다. 꼬리는 눈으로 보이지 않는다. ③ 샘플 위치를 눈의 가장자리로 옮겨 BER이 10⁻⁶쯤 되는 곳을 찾아보자. 그 점의 확인 시간은 1 ms 이하다. 양산에서 아이 마진을 재는 방식이 이것이다. (모델: 400 mVpp NRZ, 1차 RC 채널, 비트마다 가우스 RJ와 가우스 전압 잡음. BER은 패턴의 모든 비트에 대해 해석적으로 평균. 등화기와 CDR 추적은 넣지 않았다.)</div>
+      <div class="sim-note">해볼 것: ① 아이 화면을 눌러 샘플 위치와 판정 전압을 옮겨 보자. 채널 손실을 0에서 12 dB까지 올리면 눈이 ISI로 닫힌다. ② "최적점 찾기"를 누른 뒤 RJ를 1 ps에서 3 ps로 키우면, 눈은 아직 열려 보이는데 욕조의 바닥이 좁아지고 BER이 수십 자리 나빠진다. 꼬리는 눈으로 보이지 않는다. ③ 샘플 위치를 눈의 가장자리로 옮겨 BER이 10⁻⁶쯤 되는 곳을 찾아보자. 그 점의 확인 시간은 1 ms 이하다. 양산에서 아이 마진을 재는 방식이 이것이다. (모델: 400 mVpp NRZ, 1차 RC 채널(지연은 CDR이 맞춘다고 보고 보정), 비트마다 가우스 RJ와 가우스 전압 잡음. BER은 패턴의 모든 비트에 대해 해석적으로 평균. 등화기와 CDR 추적은 넣지 않았다.)</div>
     </div>
 
     <div class="sim" id="sim-bt">
@@ -761,7 +759,7 @@
   const db = (x) => 10 * Math.log10(Math.max(x, 1e-30));
   const sup = (e) => String(e).replace(/-/g, "⁻").replace(/\d/g, (d) => "⁰¹²³⁴⁵⁶⁷⁸⁹"[d]);
   const sci = (x, d) => { if (!isFinite(x) || x <= 0) return "0"; const e = Math.floor(Math.log10(x)); const m = x / Math.pow(10, e); return (m.toFixed(d == null ? 1 : d)) + "×10" + sup(e); };
-  const fmtT = (s) => s < 1e-3 ? (s * 1e6).toFixed(s < 1e-5 ? 2 : 0) + " µs" : s < 1 ? (s * 1e3).toFixed(s < 0.01 ? 2 : 1) + " ms" : s < 120 ? s.toFixed(s < 10 ? 2 : 1) + " s" : s < 7200 ? (s / 60).toFixed(1) + " 분" : s < 172800 ? (s / 3600).toFixed(1) + " 시간" : (s / 86400).toFixed(0) + " 일";
+  const fmtT = (s) => s < 1e-3 ? (s * 1e6).toFixed(s < 1e-5 ? 2 : 0) + " µs" : s < 1 ? (s * 1e3).toFixed(s < 0.01 ? 2 : 1) + " ms" : s < 600 ? s.toFixed(s < 10 ? 2 : 0) + " s" : s < 7200 ? (s / 60).toFixed(1) + " 분" : s < 172800 ? (s / 3600).toFixed(1) + " 시간" : s < 3.15e7 ? (s / 86400).toFixed(0) + " 일" : s < 3.15e11 ? TB.fmt(s / 3.15e7, 2) + " 년" : "사실상 무한";
   // 꼬리까지 정확한 erfc (Numerical Recipes erfcc, 상대 오차 < 1.2e-7)
   function erfcc(x) { const z = Math.abs(x), t = 1 / (1 + 0.5 * z); const r = t * Math.exp(-z * z - 1.26551223 + t * (1.00002368 + t * (0.37409196 + t * (0.09678418 + t * (-0.18628806 + t * (0.27886807 + t * (-1.13520398 + t * (1.48851587 + t * (-0.82215223 + t * 0.17087277))))))))); return x >= 0 ? r : 2 - r; }
   const Q = (x) => 0.5 * erfcc(x / Math.SQRT2);
@@ -834,7 +832,7 @@
       for (let k = 1; k <= C - 2; k++) { md = Math.max(md, Math.abs(est.dnl[k])); mdt = Math.max(mdt, Math.abs(adc.dnl[k])); if (est.dnl[k] <= -0.9) found++; }
       // 실제 INL을 끝점 기준으로
       for (let k = 1; k <= C - 1; k++) { mi = Math.max(mi, Math.abs(est.inl[k])); mit = Math.max(mit, Math.abs(adc.inl[k])); }
-      TB.stat("hg-o-n", TB.fmt(N, 3) + " <small>/ " + fmtT(N / 1e6) + "</small>");
+      TB.stat("hg-o-n", N.toLocaleString("en-US") + " <small>/ " + fmtT(N / 1e6) + "</small>");
       TB.stat("hg-o-d", md.toFixed(2) + " <small>(" + mdt.toFixed(2) + ")</small>");
       TB.stat("hg-o-i", mi.toFixed(2) + " <small>(" + mit.toFixed(2) + ")</small>");
       TB.stat("hg-o-e", est.rms.toFixed(3) + " LSB");
@@ -849,7 +847,7 @@
       const L = wide ? { x: pad, w: w * 0.64 - pad - 10 } : { x: pad, w: w - pad - 14 };
       const ph = wide ? (h - 40) / 3 : (h - 60) / 4;
       const boxes = [0, 1, 2].map((i) => ({ x: L.x, y: 18 + i * (ph + 2), w: L.w, h: ph - 22 }));
-      const eb = wide ? { x: w * 0.64 + 48, y: 24, w: w * 0.36 - 64, h: h - 80 } : { x: pad, y: 18 + 3 * (ph + 2) + 6, w: L.w, h: ph - 30 };
+      const eb = wide ? { x: w * 0.64 + 48, y: 24, w: w * 0.36 - 64, h: h - 80 } : { x: pad, y: 18 + 3 * (ph + 2) + 30, w: L.w, h: ph - 56 };
       layout = boxes;
       const X = (k) => L.x + (k / C) * L.w, bw = L.w / C;
       // 히스토그램
@@ -902,7 +900,7 @@
         txt(ctx, "32", ch.X(32), ch.Y(1) + 10, P.warn, "center", 10, true);
         ctx.strokeStyle = P.warn; ctx.setLineDash([3, 3]); ctx.beginPath(); ctx.moveTo(ch.X(32), eb.y + 18); ctx.lineTo(ch.X(32), eb.y + eb.h); ctx.stroke(); ctx.setLineDash([]);
       }
-    }, responsive(el, 1.45, 0.56, 640));
+    }, responsive(el, 1.9, 0.56, 640));
     el.addEventListener("click", (e) => {
       if (!layout) return;
       const r = el.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top, b = layout[0];
@@ -1013,8 +1011,8 @@
       R.hb.forEach((k, i) => { const v = Math.max(-170, db(R.Pw[k])); ctx.fillStyle = P.warn; ctx.beginPath(); ctx.arc(ch.X(k), ch.Y(v), 3.5, 0, 7); ctx.fill(); txt(ctx, "H" + (i + 2), ch.X(k), ch.Y(v) - 10, P.warn, "center", 10, true); });
       ctx.strokeStyle = P.ok; ctx.setLineDash([5, 4]); ctx.beginPath(); const ylim = -R.ideal - 10 * Math.log10(half); ctx.moveTo(sb.x, ch.Y(ylim)); ctx.lineTo(sb.x + sb.w, ch.Y(ylim)); ctx.stroke(); ctx.setLineDash([]);
       txt(ctx, "이상적 " + bits() + "비트 잡음 바닥(빈당)", sb.x + sb.w - 4, ch.Y(ylim) - 8, P.ok, "right", 10);
-      txt(ctx, "SINAD " + R.sinad.toFixed(1) + " dB · ENOB " + R.enob.toFixed(2), sb.x + sb.w - 4, sb.y + 8, P.text, "right", 12, true, 600);
-    }, responsive(el, 1.25, 0.62, 600));
+      txt(ctx, "SINAD " + R.sinad.toFixed(1) + " dB · ENOB " + R.enob.toFixed(2), sb.x + sb.w - 4, sb.y + sb.h - 12, P.text, "right", wide ? 12 : 11, true, 600);
+    }, responsive(el, 1.6, 0.62, 600));
     $("cf-snap").addEventListener("click", () => mode.set("odd"));
     $("cf-re").addEventListener("click", () => { seed++; go(); });
     go();
@@ -1071,7 +1069,7 @@
       ser.push({ data: [[1e5, snrJ(1e5, s)], [1e10, snrJ(1e10, s)]], color: P.accent, width: 2.2 });
       ser.push({ data: comb_, color: P.text, width: 1.6, dash: [5, 4] });
       const ch = TB.chart(ctx, cb, { x: [1e5, 1e10], y: [20, 120], logX: true, series: ser, hlines: [{ y: q, color: P.accent2, label: "양자화 " + q.toFixed(0) + " dB", dash: [] }], points: [{ x: f, y: comb(snrJ(f, s), q), color: P.bad, r: 5 }], xFmt: (v) => TB.si(v, "Hz", 1).replace(" ", ""), yLabel: "SNR (dB)", xLabel: "입력 주파수" });
-      fam.forEach((sv) => { const fx = Math.pow(10, (122 - 2) / -20) / (2 * Math.PI * sv); const yv = 112; const xv = 1 / (2 * Math.PI * sv * Math.pow(10, yv / 20)); if (xv > 1e5 && xv < 1e10) txt(ctx, TB.si(sv, "s", 1).replace(" ", ""), ch.X(xv) + 3, ch.Y(yv), P.dim, "left", 10, true); });
+      fam.forEach((sv) => { if (sv === 5e-14) return; const fx = Math.pow(10, (122 - 2) / -20) / (2 * Math.PI * sv); const yv = 112; const xv = 1 / (2 * Math.PI * sv * Math.pow(10, yv / 20)); if (xv > 1e5 && xv < 1e10) txt(ctx, TB.si(sv, "s", 1).replace(" ", ""), ch.X(xv) + 3, ch.Y(yv), P.dim, "left", 10, true); });
       // TB-7 감시 ADC 영역
       ctx.fillStyle = P.ok; ctx.globalAlpha = 0.12; ctx.fillRect(ch.X(1e5), cb.y, ch.X(5e5) - ch.X(1e5), cb.h); ctx.globalAlpha = 1;
       txt(ctx, "TB-7 ADC", ch.X(1e5) + 3, cb.y + cb.h - 10, P.ok, "left", 10);
@@ -1089,18 +1087,18 @@
     const vn = TB.range("ey-vn", (v) => v + " mV", () => go());
     const ph = TB.range("ey-ph", (v) => v.toFixed(2) + " UI", () => go(true));
     const th = TB.range("ey-th", (v) => v + " mV", () => go(true));
-    let bits = [], wave = null, L = 0, seed = 1, tub = null, eyeW = 0;
+    let bits = [], wave = null, L = 0, dly = 0, seed = 1, tub = null, eyeW = 0;
     function prbs(k) { const taps = k === 7 ? [7, 6] : [9, 5]; let r = (1 << k) - 1; const out = []; const n = (1 << k) - 1; for (let i = 0; i < n; i++) { const b = ((r >> (taps[0] - 1)) ^ (r >> (taps[1] - 1))) & 1; r = ((r << 1) | b) & n; out.push(b); } return out; }
     function gen() {
       bits = prbs(+pat()); L = bits.length;
       const Ld = loss(), fN = 8e9, dt = UI / OS;
       const tau = Ld > 0 ? Math.sqrt(Math.pow(10, Ld / 10) - 1) / (2 * Math.PI * fN) : 0;
-      const a = tau > 0 ? 1 - Math.exp(-dt / tau) : 1;
+      const a = tau > 0 ? 1 - Math.exp(-dt / tau) : 1; dly = tau > 0 ? tau * Math.LN2 / dt : 0;
       wave = new Float64Array(L * OS); let y = 0;
       for (let pass = 0; pass < 3; pass++) for (let i = 0; i < L; i++) { const tgt = bits[i] ? AMP : -AMP; for (let k = 0; k < OS; k++) { y += (tgt - y) * a; if (pass === 2) wave[i * OS + k] = y; } }
     }
     const at = (pos) => { // pos: 샘플 단위(비트 시작 = i*OS), 주기적 보간
-      const n = L * OS; let p = pos % n; if (p < 0) p += n; const i0 = Math.floor(p), fr = p - i0; return wave[i0] * (1 - fr) + wave[(i0 + 1) % n] * fr;
+      const n = L * OS; let p = (pos + dly) % n; if (p < 0) p += n; const i0 = Math.floor(p), fr = p - i0; return wave[i0] * (1 - fr) + wave[(i0 + 1) % n] * fr;
     };
     const GH = [[-2.0202, 0.0200], [-0.9586, 0.3936], [0, 0.9453], [0.9586, 0.3936], [2.0202, 0.0200]].map(([x, w]) => [x * Math.SQRT2, w / Math.sqrt(Math.PI)]);
     function berAt(phase, vth) {
@@ -1160,7 +1158,7 @@
       txt(ctx, "+200 mV", eb.x - 4, EY(AMP), TX, "right", 9, true); txt(ctx, "−200", eb.x - 4, EY(-AMP), TX, "right", 9, true);
       txt(ctx, "0", EX(0), eb.y + eb.h + 10, TX, "center", 10, true); txt(ctx, "1 UI", EX(1), eb.y + eb.h + 10, TX, "center", 10, true);
       // 욕조
-      const bb = wide ? { x: w * 0.56 + 40, y: 24, w: w * 0.44 - 56, h: h - 64 } : { x: 46, y: h * 0.55 + 6, w: w - 60, h: h * 0.45 - 46 };
+      const bb = wide ? { x: w * 0.56 + 40, y: 24, w: w * 0.44 - 56, h: h - 64 } : { x: 46, y: h * 0.55 + 16, w: w - 60, h: h * 0.45 - 56 };
       const BX = (p) => bb.x + p * bb.w, BY = (lg) => bb.y + (-lg / 16) * bb.h;
       ctx.strokeStyle = G; for (let lg = 0; lg >= -16; lg -= 4) { ctx.beginPath(); ctx.moveTo(bb.x, BY(lg)); ctx.lineTo(bb.x + bb.w, BY(lg)); ctx.stroke(); txt(ctx, "1e" + lg, bb.x - 4, BY(lg), TX, "right", 9, true); }
       ctx.strokeStyle = "#ff6b6b"; ctx.setLineDash([5, 4]); ctx.beginPath(); ctx.moveTo(bb.x, BY(-12)); ctx.lineTo(bb.x + bb.w, BY(-12)); ctx.stroke(); ctx.setLineDash([]);
@@ -1168,7 +1166,7 @@
       ctx.strokeStyle = TR; ctx.lineWidth = 2; ctx.beginPath();
       tub.forEach(([p, b], i) => { const y = BY(Math.max(-16, Math.log10(Math.max(b, 1e-300)))); i ? ctx.lineTo(BX(p), y) : ctx.moveTo(BX(p), y); }); ctx.stroke();
       ctx.strokeStyle = "#ffb454"; ctx.lineWidth = 1.2; ctx.beginPath(); ctx.moveTo(BX(ph()), bb.y); ctx.lineTo(BX(ph()), bb.y + bb.h); ctx.stroke();
-      txt(ctx, "욕조 곡선: BER vs 샘플 위치", bb.x, 12, TX, "left", 11);
+      txt(ctx, "욕조 곡선: BER vs 샘플 위치", bb.x, wide ? 12 : bb.y - 2, TX, "left", 11);
       txt(ctx, "0", BX(0), bb.y + bb.h + 10, TX, "center", 10, true); txt(ctx, "1 UI", BX(1), bb.y + bb.h + 10, TX, "center", 10, true);
     }, responsive(el, 1.25, 0.5, 620));
     el.addEventListener("click", (e) => {
@@ -1220,7 +1218,7 @@
       [0, 1, 3, 10].forEach((E, i) => { const l = lam(E, R.c), d = []; for (let e = -6; e >= -16; e -= 0.25) { const B = Math.pow(10, e); let t = l / B / R.r; if (!par.checked) t *= lanes(); d.push([-e, t]); } series.push({ data: d, color: E === R.E ? P.accent : P.faint, width: E === R.E ? 2.4 : 1.2, dash: E === R.E ? [] : [4, 3] }); });
       if (![0, 1, 3, 10].includes(R.E)) { const l = R.l, d = []; for (let e = -6; e >= -16; e -= 0.25) { const B = Math.pow(10, e); let t = l / B / R.r; if (!par.checked) t *= lanes(); d.push([-e, t]); } series.push({ data: d, color: P.accent, width: 2.4 }); }
       const box = { x: 62, y: 18, w: w - 84, h: h - 66 };
-      const ch = TB.chart(ctx, box, { x: [6, 16], y: [1e-6, 1e8], logY: true, series, xTicks: [6, 8, 10, 12, 14, 16], xFmt: (v) => "10⁻" + String(v).replace(/\d/g, (d) => "⁰¹²³⁴⁵⁶⁷⁸⁹"[d]), yFmt: (v) => fmtT(v).replace(" ", ""), yTicks: [1e-6, 1e-3, 1, 1e3, 1e6], hlines: [{ y: 8, color: P.warn, label: "파이널 삽입 전체 8 s" }, { y: 0.1, color: P.ok, label: "현실적 예산 0.1 s" }], points: [{ x: -Math.log10(R.B), y: R.tt, color: P.bad, r: 6 }], xLabel: "목표 BER", yLabel: "테스트 시간" });
+      const ch = TB.chart(ctx, box, { x: [6, 16], y: [1e-6, 1e8], logY: true, series, xTicks: [6, 8, 10, 12, 14, 16], xFmt: (v) => "10⁻" + String(v).replace(/\d/g, (d) => "⁰¹²³⁴⁵⁶⁷⁸⁹"[d]), yFmt: (v) => ({ 1e-6: "1µs", 1e-3: "1ms", 1: "1s", 1e3: "17분", 1e6: "12일" })[v] || "", yTicks: [1e-6, 1e-3, 1, 1e3, 1e6], hlines: [{ y: 8, color: P.warn, label: "파이널 삽입 전체 8 s" }, { y: 0.1, color: P.ok, label: "현실적 예산 0.1 s" }], points: [{ x: -Math.log10(R.B), y: R.tt, color: P.bad, r: 6 }], xLabel: "목표 BER", yLabel: "테스트 시간" });
       txt(ctx, "곡선: 허용 오류 0·1·3·10개 (굵은 선 = 현재), 신뢰 " + (R.c * 100).toFixed(1) + "%", box.x + 6, box.y + 10, P.dim, "left", w < 480 ? 10 : 11);
       txt(ctx, fmtT(R.tt), ch.X(-Math.log10(R.B)) - 8, ch.Y(R.tt) - 12, P.bad, "right", 12, true, 600);
     }, responsive(el, 0.85, 0.48, 560));
