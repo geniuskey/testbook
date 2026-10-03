@@ -5,6 +5,30 @@
 <html lang="ko">
 <head>
 <!--head:start {"desc": "테스트 셀의 시간당 원가(COT)에서 개당·양품당 테스트 비용을 계산하고, 멀티 사이트 효율, 수율과 stop-on-fail, 유출 비용과 최적 커버리지, 적응형 테스트와 테스트 시간 파레토를 시뮬레이터로 따져 TB-7의 개당 테스트 비용 $0.25를 맞춘다.", "libs": ["wm"]}-->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>테스트 비용 · TestBook</title>
+<meta name="description" content="테스트 셀의 시간당 원가(COT)에서 개당·양품당 테스트 비용을 계산하고, 멀티 사이트 효율, 수율과 stop-on-fail, 유출 비용과 최적 커버리지, 적응형 테스트와 테스트 시간 파레토를 시뮬레이터로 따져 TB-7의 개당 테스트 비용 $0.25를 맞춘다.">
+<link rel="canonical" href="https://testbook.euiyun.com/chapters/cost.html">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<meta name="theme-color" content="#c2255c">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="TestBook">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:title" content="테스트 비용 · TestBook">
+<meta property="og:description" content="테스트 셀의 시간당 원가(COT)에서 개당·양품당 테스트 비용을 계산하고, 멀티 사이트 효율, 수율과 stop-on-fail, 유출 비용과 최적 커버리지, 적응형 테스트와 테스트 시간 파레토를 시뮬레이터로 따져 TB-7의 개당 테스트 비용 $0.25를 맞춘다.">
+<meta property="og:url" content="https://testbook.euiyun.com/chapters/cost.html">
+<meta property="og:image" content="https://testbook.euiyun.com/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":["Chapter","LearningResource"],"@id":"https://testbook.euiyun.com/chapters/cost.html#chapter","name":"테스트 비용","headline":"테스트 비용 · TestBook","description":"테스트 셀의 시간당 원가(COT)에서 개당·양품당 테스트 비용을 계산하고, 멀티 사이트 효율, 수율과 stop-on-fail, 유출 비용과 최적 커버리지, 적응형 테스트와 테스트 시간 파레토를 시뮬레이터로 따져 TB-7의 개당 테스트 비용 $0.25를 맞춘다.","url":"https://testbook.euiyun.com/chapters/cost.html","position":13,"inLanguage":"ko","isAccessibleForFree":true,"learningResourceType":"인터랙티브 교재","educationalLevel":"공대 학부","image":"https://testbook.euiyun.com/og.png","dateModified":"2026-10-03","isPartOf":{"@type":"Book","@id":"https://testbook.euiyun.com/#book","name":"TestBook · 반도체 테스트 교과서","url":"https://testbook.euiyun.com/"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"TestBook","item":"https://testbook.euiyun.com/"},{"@type":"ListItem","position":2,"name":"13. 테스트 비용","item":"https://testbook.euiyun.com/chapters/cost.html"}]}]}</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="../css/style.css">
+<script src="../js/common.js"></script>
+<script src="../js/wafer.js"></script>
 <!--head:end-->
 <style>
   .stat.wide { grid-column: 1 / -1; }
@@ -191,7 +215,7 @@
         <rect class="f-surface" x="492" y="16" width="36" height="22"/>
         <text class="lbl" x="321" y="32" text-anchor="middle">테스트 T₁ = 2.85 s</text>
         <text class="t-mono" x="536" y="32">→ 다이당 3.15 s</text>
-        <text class="lbl-b" x="20" y="82">4 사이트</text>
+        <text class="lbl-b" x="20" y="60">4 사이트</text>
         <g>
           <rect class="f-acc-soft" x="150" y="70" width="308" height="20"/><rect class="f-acc-soft" x="150" y="98" width="308" height="20"/><rect class="f-acc-soft" x="150" y="126" width="308" height="20"/><rect class="f-acc-soft" x="150" y="154" width="308" height="20"/>
           <rect class="f-warn-soft" x="458" y="70" width="34" height="20"/><rect class="f-warn-soft" x="492" y="98" width="34" height="20"/><rect class="f-warn-soft" x="526" y="126" width="34" height="20"/><rect class="f-warn-soft" x="560" y="154" width="34" height="20"/>
@@ -206,8 +230,8 @@
         <path class="s-axis" d="M150 226H690"/>
         <path class="s-line" d="M150 226v5M270 226v5M390 226v5M510 226v5M630 226v5"/>
         <text class="t-mono" x="150" y="244" text-anchor="middle">0</text><text class="t-mono" x="270" y="244" text-anchor="middle">1 s</text><text class="t-mono" x="390" y="244" text-anchor="middle">2 s</text><text class="t-mono" x="510" y="244" text-anchor="middle">3 s</text><text class="t-mono" x="630" y="244" text-anchor="middle">4 s</text>
-        <text class="t-mono" x="690" y="168" text-anchor="end">4.0 s ÷ 4</text>
-        <text class="t-mono" x="690" y="184" text-anchor="end">= 1.0 s/다이</text>
+        <text class="t-mono" x="638" y="150">4.0 s ÷ 4</text>
+        <text class="t-mono" x="638" y="166">= 1.0 s/다이</text>
       </svg>
       <figcaption><b>4사이트 터치다운의 시간표</b>(\(s=10\%\), \(\eta=90\%\)). 병렬 구간은 네 사이트가 함께 쓰지만, 공유 계측기·퓨즈 프로그래밍·데이터 기록 같은 직렬 구간은 사이트가 차례를 기다린다(점선). 터치다운은 가장 늦게 끝나는 사이트를 기다려 4.0 s가 걸리고, 다이당 1.0 s로 단일 사이트의 3.15 s보다 3배 남짓 빠르다.</figcaption>
     </figure>
@@ -317,7 +341,7 @@
         </div>
         <div class="sim-controls">
           <div class="ctrl"><span>불량이 발견되는 곳 (10배 법칙)</span><div class="seg" id="oc-where"><button data-value="0.477">웨이퍼 $3</button><button data-value="1.699">보드 $50</button><button data-value="2.699" class="on">폰 $500</button><button data-value="3.699">차량 $5k</button></div></div>
-          <label class="ctrl"><span>현장 불량 비용 C<sub>field</sub> <output id="oc-f-out"></output></span><input type="range" id="oc-f" min="0" max="4" step="0.01" value="2.699"></label>
+          <label class="ctrl"><span>현장 불량 비용 <output id="oc-f-out"></output></span><input type="range" id="oc-f" min="0" max="4" step="0.01" value="2.699"></label>
           <label class="ctrl"><span>수율 Y <output id="oc-y-out"></output></span><input type="range" id="oc-y" min="50" max="99" step="0.5" value="85"></label>
           <label class="ctrl"><span>테스터 시간당 원가 <output id="oc-c-out"></output></span><input type="range" id="oc-c" min="50" max="600" step="5" value="250"></label>
           <label class="ctrl"><span>나인 하나당 패턴 시간 <output id="oc-tau-out"></output></span><input type="range" id="oc-tau" min="0.05" max="1.5" step="0.01" value="0.38"></label>
@@ -404,6 +428,7 @@
         <div class="stat"><span class="k">테스트 비용 (웨이퍼+파이널)</span><span class="v" id="pa-o-c">—</span></div>
         <div class="stat"><span class="k">패키지 낭비</span><span class="v" id="pa-o-pk">—</span></div>
         <div class="stat"><span class="k">추가 출하 불량</span><span class="v" id="pa-o-dp">—</span></div>
+        <div class="stat"><span class="k">유출 비용 ($500 × DPPM)</span><span class="v" id="pa-o-ec">—</span></div>
         <div class="stat wide"><span class="k">목표: 비용 −25% 이상, 추가 DPPM ≤ 5, 패키지 낭비 ≤ $0.005</span><span class="v" id="pa-o-goal">—</span></div>
       </div>
       <div class="sim-note">해볼 것: ① 막대를 누르면 그 항목을 프로그램에서 뺀다(회색 자물쇠 항목은 뺄 수 없다). 웨이퍼 테스트에서 가장 긴 MBIST나 스캔을 빼 보자. 시간은 크게 줄지만 불량 다이가 조립되어 패키지 값을 버린다. ② 이번에는 항목을 빼지 말고 오른쪽 네 가지 기법만 켜 보자. 목표를 맞출 수 있는가? ③ 파이널에서 동시 테스트를 켠 뒤 ADC 히스토그램을 빼 보자. 시간이 줄지 않는다. 가장 긴 항목이 묶음의 시간을 정하기 때문이다. (가정: 각 항목의 고유 불량률과 '빼면 남는 유출'은 교육용 추정값, 현장 불량 비용 $500, 패키지·조립 $2, \(\eta=90\%\), 사이트 4·8, 인덱스 0.3·0.4 s, 시간당 원가 $250.)</div>
@@ -429,7 +454,7 @@
         <div class="stat"><span class="k">추가 출하 불량</span><span class="v" id="ad-o-dp">—</span></div>
         <div class="stat wide"><span class="k">고른 웨이퍼 (맵을 누르면)</span><span class="v" id="ad-o-sel">웨이퍼 맵을 누르면 그 웨이퍼의 결함 밀도와 비싼 항목의 고유 불량률이 나온다.</span></div>
       </div>
-      <div class="sim-note">해볼 것: ① 문턱을 내리면 건너뛰는 웨이퍼가 늘고 시간을 더 아끼지만 유출도 는다. 추가 DPPM이 1 이하로 남는 가장 낮은 문턱을 찾아보자. ② "무작위"로 바꾸면 같은 개수의 웨이퍼를 건너뛰고도 추가 DPPM이 몇 배가 된다. 오른쪽 산점도에서 건너뛴 점이 어디에 몰리는지 보자. ③ 품질 편차 σ를 줄이면 웨이퍼끼리 비슷해져서 상관으로 얻는 이득이 작아진다. (가정: 로트 25장, 웨이퍼 결함 밀도 \(D_w = 0.2\,e^{\sigma z-\sigma^2/2}\), 비싼 항목 = 확장 지연·셀 인식 패턴 0.6 s, 그 항목의 고유 불량률 \(0.05\%\times(D_w/0.2)^2\), 건너뛴 불량의 10%가 뒤 단계를 빠져 출하.)</div>
+      <div class="sim-note">해볼 것: ① 문턱을 내리면 건너뛰는 웨이퍼가 늘고 시간을 더 아끼지만 유출도 는다. 추가 DPPM이 1 이하로 남는 가장 낮은 문턱을 찾아보자. ② "무작위"로 바꾸면 같은 개수의 웨이퍼를 건너뛰고도 추가 DPPM이 몇 배가 된다. 오른쪽 산점도에서 건너뛴 점이 어디에 몰리는지 보자. ③ 품질 편차 σ를 줄이면 웨이퍼끼리 비슷해져서 상관으로 얻는 이득이 작아진다. (가정: 로트 25장, 웨이퍼 결함 밀도 \(D_w = 0.2\,e^{\sigma z-\sigma^2/2}\), 비싼 항목 = 확장 지연·셀 인식 패턴 0.6 s, 그 항목의 고유 불량률 \(0.03\%\times(D_w/0.2)^3\), 건너뛴 불량의 10%가 뒤 단계를 빠져 출하.)</div>
     </div>
     <div class="callout">
       <strong>적응형 테스트에는 감사가 따라야 한다</strong>
@@ -549,3 +574,368 @@
     </div>
   </section>
 </main>
+<script>
+(function () {
+  "use strict";
+  const $ = (id) => document.getElementById(id);
+  const text = (ctx, s, x, y, color, align, px, mono, weight) => { ctx.fillStyle = color; ctx.font = TB.font(px || 12, mono, weight); ctx.textAlign = align || "left"; ctx.textBaseline = "middle"; ctx.fillText(s, x, y); };
+  const soft = (c, t) => WM.mix(c, TB.palette().bg, t == null ? 0.7 : t);
+  const money = (v) => (v >= 1000 ? "$" + Math.round(v).toLocaleString("en-US") : v >= 10 ? "$" + v.toFixed(1) : v >= 1 ? "$" + v.toFixed(2) : v >= 0.01 ? "$" + v.toFixed(3) : "$" + v.toFixed(4));
+  const big = (v) => (v >= 1e6 ? "$" + (v / 1e6).toFixed(v >= 1e7 ? 1 : 2) + "M" : v >= 1e3 ? "$" + (v / 1e3).toFixed(0) + "k" : "$" + v.toFixed(0));
+  const C_S = 250 * (1 + 3 * 0.1) / (3600 * 4); // TB-7 웨이퍼 테스트: 다이당 1초의 값
+
+  /* ------------------------------------------------------------ 1. COT 계산기 */
+  (function () {
+    const DEF = {
+      ws: { name: "웨이퍼 테스트", cap: 4.6e6, yrs: 5, u: 85, oh: 126, t: 2.85, idx: 0.3, n: 4, eta: 90, y: 85 },
+      ft: { name: "파이널 테스트", cap: 4.6e6, yrs: 5, u: 85, oh: 126, t: 4.47, idx: 0.4, n: 8, eta: 90, y: 97 },
+      slt: { name: "SLT", cap: 8000, yrs: 5, u: 85, oh: 1.8, t: 120, idx: 0, n: 1, eta: 100, y: 99.5 },
+    };
+    const CONS = 0.029;
+    let S = JSON.parse(JSON.stringify(DEF)), cur = "ws", loading = false;
+    function calc(p) {
+      const dep = p.cap / (p.yrs * 8760 * p.u / 100), chr = dep + p.oh, eta = p.eta / 100;
+      const tn = p.t * (1 + (p.n - 1) * (1 - eta)), cyc = tn + p.idx, k = 1 / (3600 * p.n), Y = p.y / 100;
+      const unit = chr * cyc * k, good = unit / Y;
+      const parts = [dep * p.t * k, p.oh * p.t * k, chr * (tn - p.t) * k, chr * p.idx * k, unit * (1 / Y - 1)];
+      return { dep, chr, tn, cyc, unit, good, uph: 3600 * p.n / cyc, parts };
+    }
+    const bind = (id, key, fmt, toV) => TB.range(id, fmt, (v) => { if (!loading) S[cur][key] = toV ? toV(v) : v; upd(); });
+    const rCap = bind("cot-cap", "cap", (v) => big(Math.pow(10, v)), (v) => Math.pow(10, v));
+    const rYrs = bind("cot-yrs", "yrs", (v) => v + "년");
+    const rU = bind("cot-u", "u", (v) => v + "%");
+    const rOh = bind("cot-oh", "oh", (v) => "$" + v.toFixed(v < 10 ? 1 : 0) + "/h");
+    const rT = bind("cot-t", "t", (v) => { const t = Math.pow(10, v); return (t < 10 ? t.toFixed(2) : t.toFixed(0)) + " s"; }, (v) => Math.pow(10, v));
+    const rIdx = bind("cot-idx", "idx", (v) => v.toFixed(2) + " s");
+    const rN = bind("cot-n", "n", (v) => String(v));
+    const rEta = bind("cot-eta", "eta", (v) => v + "%");
+    const rY = bind("cot-y", "y", (v) => v.toFixed(1) + "%");
+    function load() {
+      const p = S[cur]; loading = true;
+      rCap.set(Math.log10(p.cap)); rYrs.set(p.yrs); rU.set(p.u); rOh.set(p.oh); rT.set(Math.log10(p.t)); rIdx.set(p.idx); rN.set(p.n); rEta.set(p.eta); rY.set(p.y);
+      loading = false; upd();
+    }
+    TB.seg("cot-stage", (v) => { cur = v; load(); });
+    $("cot-reset").addEventListener("click", () => { S = JSON.parse(JSON.stringify(DEF)); load(); });
+    const NAMES = ["감가상각 × 시험 시간", "운영비 × 시험 시간", "멀티 사이트 손실", "인덱스 시간", "불량 다이 몫(÷Y)"];
+    const view = $("cot-cv").parentElement;
+    const cv = TB.canvas($("cot-cv"), (ctx, w, h) => {
+      const P = TB.palette(), small = w < 520, pad = small ? 10 : 20, fs = small ? 10.5 : 12;
+      const r = calc(S[cur]), cols = [P.accent, P.accent2, P.warn, P.faint, P.bad];
+      text(ctx, "양품 1개당 비용 분해 — " + S[cur].name + " " + money(r.good), pad, 14, P.text, "left", small ? 12 : 13, false, 600);
+      let x = pad; const bw = w - 2 * pad;
+      r.parts.forEach((v, i) => { const ww = bw * v / r.good; ctx.fillStyle = cols[i]; ctx.globalAlpha = i === 3 ? 0.6 : 0.85; ctx.fillRect(x, 28, ww, 28); ctx.globalAlpha = 1; x += ww; });
+      const nc = small ? 2 : 3, cw = bw / nc;
+      r.parts.forEach((v, i) => {
+        const cx = pad + (i % nc) * cw, cy = 72 + Math.floor(i / nc) * 18;
+        ctx.fillStyle = cols[i]; ctx.fillRect(cx, cy - 5, 10, 10);
+        text(ctx, NAMES[i] + " " + money(v), cx + 14, cy, P.dim, "left", fs);
+      });
+      const rows = Math.ceil(5 / nc), top = 72 + rows * 18 + 18, base = h - 30;
+      const st = ["ws", "ft", "slt"].map((k) => calc(S[k]).good), vals = [st[0], st[1], st[2], CONS], tot = vals.reduce((a, b) => a + b, 0);
+      const mx = Math.max(tot, 0.3) * 1.12, Ys = (v) => base - (base - top - 14) * v / mx;
+      text(ctx, "TB-7 양품 1개당 테스트 비용 합계", pad, top - 4, P.text, "left", small ? 11.5 : 12.5, false, 600);
+      ctx.strokeStyle = P.axis; ctx.beginPath(); ctx.moveTo(pad, base + 0.5); ctx.lineTo(w - pad, base + 0.5); ctx.stroke();
+      ctx.setLineDash([4, 3]); ctx.strokeStyle = P.faint; ctx.beginPath(); ctx.moveTo(pad, Ys(0.25)); ctx.lineTo(w - pad, Ys(0.25)); ctx.stroke(); ctx.setLineDash([]);
+      text(ctx, "목표 $0.25", pad, Ys(0.25) - 8, P.dim, "left", fs);
+      const labs = ["웨이퍼", "파이널", "SLT", "소모품", "합계"], slot = (w - 2 * pad) / 5, bwid = Math.min(70, slot * 0.6);
+      let acc = 0;
+      for (let i = 0; i < 5; i++) {
+        const cx = pad + slot * (i + 0.5), v = i < 4 ? vals[i] : tot, y0 = i < 4 ? Ys(acc + v) : Ys(tot), y1 = i < 4 ? Ys(acc) : base;
+        const sel = (i === 0 && cur === "ws") || (i === 1 && cur === "ft") || (i === 2 && cur === "slt");
+        ctx.fillStyle = i === 4 ? (tot <= 0.25 ? P.ok : P.bad) : sel ? P.accent : soft(P.accent2, 0.55);
+        ctx.fillRect(cx - bwid / 2, y0, bwid, Math.max(1, y1 - y0));
+        text(ctx, money(v), cx, y0 - 9, P.text, "center", fs, true);
+        text(ctx, labs[i], cx, base + 14, sel ? P.accent : P.dim, "center", fs, false, sel ? 700 : 400);
+        if (i < 4) acc += v;
+      }
+    }, { get aspect() { return (view.clientWidth || 600) < 520 ? 0.95 : 0.5; }, minHeight: 330 });
+    function upd() {
+      const r = calc(S[cur]);
+      const tot = ["ws", "ft", "slt"].map((k) => calc(S[k]).good).reduce((a, b) => a + b, 0) + CONS;
+      TB.stat("cot-o-hr", "$" + r.chr.toFixed(r.chr < 10 ? 2 : 0) + "<small>/h</small>");
+      TB.stat("cot-o-cyc", r.cyc.toFixed(2) + "<small> s</small>");
+      TB.stat("cot-o-uph", Math.round(r.uph).toLocaleString("en-US") + "<small> 개/h</small>");
+      TB.stat("cot-o-u", money(r.unit));
+      TB.stat("cot-o-g", money(r.good));
+      TB.stat("cot-o-tot", '<span class="' + (tot <= 0.255 ? "goal-ok" : "goal-bad") + '">' + money(tot) + "</span>");
+      cv.redraw();
+    }
+    load();
+  })();
+
+  /* ------------------------------------------------------------ 2. 멀티 사이트 */
+  (function () {
+    const g = {};
+    const upd = () => draw();
+    g.n = TB.range("ms-n", (v) => v + " 사이트", upd);
+    g.s = TB.range("ms-s", (v) => v.toFixed(1) + "%", upd);
+    g.t = TB.range("ms-t", (v) => v.toFixed(2) + " s", upd);
+    g.idx = TB.range("ms-idx", (v) => v.toFixed(2) + " s", upd);
+    g.card = TB.range("ms-card", (v) => "$" + v + "k", upd);
+    $("ms-cc").addEventListener("change", upd); $("ms-edge").addEventListener("change", upd);
+    function model(N) {
+      const s = g.s() / 100, t1 = g.t(), idx = g.idx(), cc = $("ms-cc").checked, edge = $("ms-edge").checked ? 1 + 0.015 * (N - 1) : 1;
+      const tn = t1 * ((1 - s) + s * N), chr = cc ? 150 + 25 * N : 250, card = cc ? g.card() * 1000 * Math.pow(N, 1.1) : 0;
+      const time = chr * (tn + idx) / 3600 * edge / N / 0.85, cardc = card / 1.5e6 * edge / N / 0.85;
+      return { tn, uph: 3600 * N / (tn + idx) / edge, ideal: 3600 * N / (t1 + idx), cost: time + cardc, time, cardc };
+    }
+    const view = $("ms-cv").parentElement;
+    const cv = TB.canvas($("ms-cv"), (ctx, w, h) => {
+      const P = TB.palette(), small = w < 560, N = g.n(), s = g.s() / 100, t1 = g.t(), idx = g.idx(), m = model(N), fs = small ? 10.5 : 12;
+      // 간트
+      const gx = small ? 58 : 76, gw = w - gx - 14, gy = 26, gh = 92, tmax = m.tn + idx, sc = gw / tmax, lane = Math.min(16, gh / N), lh = Math.max(1.5, lane - (lane > 6 ? 3 : 0.5));
+      text(ctx, N + " 사이트 터치다운: T_N = " + m.tn.toFixed(2) + " s + 인덱스 " + idx.toFixed(2) + " s", 10, 12, P.text, "left", small ? 11 : 12.5, false, 600);
+      for (let k = 0; k < N; k++) {
+        const y = gy + k * lane;
+        ctx.fillStyle = soft(P.accent, 0.55); ctx.fillRect(gx, y, (1 - s) * t1 * sc, lh);
+        const sx = gx + ((1 - s) * t1 + k * s * t1) * sc;
+        ctx.fillStyle = P.warn; ctx.fillRect(sx, y, Math.max(1, s * t1 * sc), lh);
+        ctx.fillStyle = soft(P.faint, 0.3); ctx.fillRect(gx + m.tn * sc, y, idx * sc, lh);
+        if (N <= 8) text(ctx, "사이트 " + (k + 1), gx - 6, y + lh / 2, P.dim, "right", fs - 1);
+      }
+      if (N > 8) text(ctx, "사이트 1…" + N, gx - 6, gy + N * lane / 2, P.dim, "right", fs - 1);
+      text(ctx, "병렬", gx + 4, gy + Math.min(lh, 14) / 2, P.text, "left", fs - 1);
+      // 그래프
+      const top = gy + gh + 22, Ns = []; for (let n = 1; n <= 32; n++) Ns.push([n, model(n)]);
+      let best = Ns[0]; Ns.forEach((e) => { if (e[1].cost < best[1].cost) best = e; });
+      const b1 = small ? { x: 58, y: top + 16, w: w - 58 - 14, h: (h - top - 16 - 44 * 2 - 16) / 2 } : { x: 62, y: top + 16, w: (w - 62 * 2 - 30) / 2, h: h - top - 16 - 44 };
+      const b2 = small ? { x: 58, y: b1.y + b1.h + 44 + 16, w: b1.w, h: b1.h } : { x: b1.x + b1.w + 62 + 14, y: b1.y, w: b1.w, h: b1.h };
+      const umax = Math.max(...Ns.map((e) => e[1].uph)) * 1.15;
+      text(ctx, "처리량 (다이/h)", b1.x, b1.y - 10, P.text, "left", fs, false, 600);
+      TB.chart(ctx, b1, { x: [1, 32], y: [0, Math.min(umax, Ns[31][1].ideal * 1.05)], xLabel: "사이트 수 N", xTicks: [1, 8, 16, 24, 32], yFmt: (v) => (v >= 1000 ? (v / 1000).toFixed(0) + "k" : String(v)),
+        series: [{ data: Ns.map((e) => [e[0], e[1].ideal]), color: P.faint, dash: [5, 4], width: 1.5 }, { data: Ns.map((e) => [e[0], e[1].uph]), color: P.accent, width: 2.4 }],
+        vlines: [{ x: N, color: P.text }], points: [{ x: N, y: m.uph, color: P.accent }] });
+      const cmax = Math.max(...Ns.map((e) => e[1].cost).slice(0, 32)) * 1.1;
+      text(ctx, "양품 다이당 비용 ($)", b2.x, b2.y - 10, P.text, "left", fs, false, 600);
+      TB.chart(ctx, b2, { x: [1, 32], y: [0, Math.min(cmax, best[1].cost * 4)], xLabel: "사이트 수 N", xTicks: [1, 8, 16, 24, 32], yFmt: (v) => v.toFixed(2),
+        series: [{ data: Ns.map((e) => [e[0], e[1].time]), color: P.accent2, width: 1.5 }, { data: Ns.map((e) => [e[0], e[1].cardc]), color: P.warn, width: 1.5 }, { data: Ns.map((e) => [e[0], e[1].cost]), color: P.accent, width: 2.4 }],
+        vlines: [{ x: N, color: P.text }], points: [{ x: best[0], y: best[1].cost, color: P.ok, r: 5, label: "최적 " + best[0] }] });
+      TB.stat("ms-o-eta", (100 - g.s()).toFixed(1) + "%");
+      TB.stat("ms-o-tn", m.tn.toFixed(2) + "<small> s</small>");
+      TB.stat("ms-o-uph", Math.round(m.uph).toLocaleString("en-US") + "<small> 다이/h</small>");
+      TB.stat("ms-o-c", money(m.cost));
+      TB.stat("ms-o-opt", best[0] + "<small> 사이트 · " + money(best[1].cost) + "</small>");
+    }, { get aspect() { return (view.clientWidth || 600) < 560 ? 1.55 : 0.62; }, minHeight: 380 });
+    function draw() { cv.redraw(); }
+  })();
+
+  /* ------------------------------------------------------------ 3. 최적 커버리지 */
+  (function () {
+    let pick = 3.0;
+    const upd = () => cv.redraw();
+    const rF = TB.range("oc-f", (v) => money(Math.pow(10, v)), upd);
+    const rY = TB.range("oc-y", (v) => v.toFixed(1) + "%", upd);
+    const rC = TB.range("oc-c", (v) => "$" + v + "/h", upd);
+    const rTau = TB.range("oc-tau", (v) => v.toFixed(2) + " s", upd);
+    TB.seg("oc-where", (v) => rF.set(Number(v)));
+    const ppm = (v) => (v >= 100 ? Math.round(v).toLocaleString("en-US") : v >= 1 ? v.toFixed(1) : v.toFixed(2));
+    const fcTxt = (n) => { const v = 100 - 100 * Math.pow(10, -n); const d = Math.max(0, Math.ceil(n - 2 + 0.3)); return v.toFixed(Math.min(5, d)) + "%"; };
+    function m() {
+      const cs = rC() / 3600 / 3.6, a = cs * rTau(), Y = rY() / 100, Cf = Math.pow(10, rF());
+      const test = (n) => a * n, dl = (n) => 1 - Math.pow(Y, Math.pow(10, -n)), esc = (n) => Cf * dl(n), tot = (n) => test(n) + esc(n);
+      let bn = 1; for (let n = 1; n <= 6; n += 0.005) if (tot(n) < tot(bn)) bn = n;
+      return { test, dl, esc, tot, bn, Y };
+    }
+    let box = null;
+    const view = $("oc-cv").parentElement;
+    const cv = TB.canvas($("oc-cv"), (ctx, w, h) => {
+      const P = TB.palette(), M = m(), small = w < 520, pts = (f) => { const o = []; for (let n = 1; n <= 6.0001; n += 0.05) o.push([n, f(n)]); return o; };
+      let lo = Infinity, hi = 0; for (let n = 1; n <= 6; n += 0.1) { lo = Math.min(lo, M.test(n), M.tot(n)); hi = Math.max(hi, M.tot(n)); }
+      const y0 = Math.pow(10, Math.floor(Math.log10(Math.max(1e-6, Math.min(lo, M.tot(M.bn)) / 4)))), y1 = Math.pow(10, Math.ceil(Math.log10(hi * 1.5)));
+      const n50 = -Math.log10(-Math.log(1 - 50e-6) / -Math.log(M.Y));
+      box = { x: 64, y: 14, w: w - 64 - 34, h: h - 14 - 50 };
+      TB.chart(ctx, box, { x: [1, 6], y: [y0, y1], logY: true, xTicks: [1, 2, 3, 4, 5, 6], xFmt: (n) => (small && (n === 2 || n === 4 || n === 6) ? "" : fcTxt(n)), yFmt: (v) => (v >= 1 ? "$" + v : "$" + v.toPrecision(1)), yLabel: "다이당 비용", xLabel: "결함 커버리지 FC",
+        series: [{ data: pts(M.test), color: P.accent2, width: 2 }, { data: pts(M.esc), color: P.bad, width: 2 }, { data: pts(M.tot), color: P.accent, width: 3 }],
+        vlines: [{ x: 3.523, color: P.warn, label: small ? "TB-7" : Math.abs(n50 - 3.523) < 0.25 ? "TB-7 99.97% ≈ 50 DPPM" : "TB-7 99.97%" }, { x: n50, color: P.faint, label: Math.abs(n50 - 3.523) < 0.25 ? "" : "50 DPPM", dash: [2, 3] }],
+        points: [{ x: M.bn, y: M.tot(M.bn), color: P.accent, r: 6, label: "최적" }, { x: pick, y: M.tot(pick), color: P.warn, r: 5 }] });
+      TB.stat("oc-o-fc", fcTxt(M.bn));
+      TB.stat("oc-o-dl", (M.dl(M.bn) * 1e6).toFixed(1) + "<small> DPPM</small>");
+      TB.stat("oc-o-c", money(M.tot(M.bn)));
+      TB.stat("oc-o-me", fcTxt(pick) + "<small> · " + ppm(M.dl(pick) * 1e6) + " DPPM</small>");
+      const gap = M.tot(pick) - M.tot(M.bn);
+      TB.stat("oc-o-gap", "+" + money(gap) + "<small> (" + (pick < M.bn ? "유출" : "테스트") + " 쪽)</small>");
+    }, { get aspect() { return (view.clientWidth || 600) < 520 ? 0.85 : 0.6; }, minHeight: 300, maxHeight: 440 });
+    $("oc-cv").addEventListener("click", (e) => {
+      if (!box) return; const [px] = WM.pos($("oc-cv"), e);
+      pick = TB.clamp(1 + (px - box.x) / box.w * 5, 1, 6); cv.redraw();
+    });
+  })();
+
+  /* ------------------------------------------------------------ 4. 테스트 시간 파레토 */
+  (function () {
+    const WS = [
+      { n: "MBIST·리페어", t: 0.90, f: 0.07, r: 10, mb: 1 },
+      { n: "스캔 고착+천이", t: 0.80, f: 0.07, r: 15, comp: 1 },
+      { n: "Vmin 탐색", t: 0.40, f: 0.005, r: 5, srch: 0.15 },
+      { n: "전원 인가·설정", t: 0.25, req: 1 },
+      { n: "데이터 기록·빈 판정", t: 0.20, req: 1 },
+      { n: "IDDQ·ΔIDDQ", t: 0.15, f: 0.003, r: 8 },
+      { n: "PLL 잠금·트림", t: 0.10, f: 0.002, r: 1 },
+      { n: "연속성·DC", t: 0.05, f: 0.01, r: 2 },
+    ];
+    const FT = [
+      { n: "SerDes 루프백·아이", t: 1.00, f: 0.004, r: 20, conc: 1 },
+      { n: "속도 등급 Fmax", t: 0.90, req: 1, srch: 0.40 },
+      { n: "기능(부팅 패턴)", t: 0.60, f: 0.003, r: 4 },
+      { n: "셋업·오버헤드", t: 0.52, req: 1 },
+      { n: "실속도 스캔", t: 0.50, f: 0.006, r: 12, comp: 1 },
+      { n: "LPDDR5X 인터페이스", t: 0.50, f: 0.003, r: 8, conc: 1 },
+      { n: "ADC 히스토그램", t: 0.25, f: 0.001, r: 6, conc: 1 },
+      { n: "온도 센서 트림", t: 0.15, req: 1 },
+      { n: "연속성·DC(패키지)", t: 0.05, f: 0.01, r: 40 },
+    ];
+    const cost = (T1, N, idx, Y) => 250 * (T1 * (1 + (N - 1) * 0.1) + idx) / (3600 * N) / Y;
+    const BASE = cost(2.85, 4, 0.3, 0.85) + cost(4.47, 8, 0.4, 0.97);
+    let ins = "ws", rows = [];
+    const opt = () => ({ conc: $("pa-conc").checked, comp: $("pa-comp").checked, srch: $("pa-srch").checked, mb: $("pa-mb").checked });
+    const eff = (it, o) => (it.off ? 0 : it.comp && o.comp ? it.t * 0.55 : it.srch && o.srch ? it.srch : it.mb && o.mb ? 0.55 : it.t);
+    function total(list, o) {
+      let s = 0; const cg = [];
+      list.forEach((it) => { const t = eff(it, o); if (it.conc && o.conc) { if (t > 0) cg.push(t); } else s += t; });
+      if (cg.length) s += cg.length > 1 ? Math.max(...cg) + 0.1 : cg[0];
+      return s;
+    }
+    function metrics() {
+      const o = opt(), tw = total(WS, o), tf = total(FT, o);
+      const c = cost(tw, 4, 0.3, 0.85) + cost(tf, 8, 0.4, 0.97);
+      let dp = 0, pk = 0;
+      WS.forEach((it) => { if (it.off) { dp += it.r; pk += it.f * 2; } if (it.comp && o.comp) dp += 1; });
+      FT.forEach((it) => { if (it.off) dp += it.r; if (it.comp && o.comp) dp += 1; });
+      return { tw, tf, c, dp, pk };
+    }
+    const view = $("pa-cv").parentElement;
+    const cv = TB.canvas($("pa-cv"), (ctx, w, h) => {
+      const P = TB.palette(), small = w < 520, list = ins === "ws" ? WS : FT, o = opt(), fs = small ? 10.5 : 12.5;
+      const lw = small ? 118 : 178, x0 = lw + 8, x1 = w - (small ? 64 : 120), sc = (x1 - x0) / 1.1, rh = 30, top = 34;
+      text(ctx, (ins === "ws" ? "웨이퍼 테스트" : "파이널 테스트") + " 항목별 시간 (한 사이트, 긴 순서)", 10, 14, P.text, "left", small ? 11.5 : 13, false, 600);
+      rows = [];
+      const sorted = list.slice().sort((a, b) => b.t - a.t);
+      let cum = 0; const T0 = list.reduce((a, b) => a + b.t, 0);
+      sorted.forEach((it, i) => {
+        const y = top + i * rh, te = eff(it, o);
+        rows.push({ y, it });
+        ctx.fillStyle = i % 2 ? "transparent" : soft(P.faint, 0.88); ctx.fillRect(0, y, w, rh);
+        text(ctx, it.n, lw, y + rh / 2, it.off ? P.faint : P.text, "right", fs);
+        ctx.fillStyle = soft(P.faint, 0.6); ctx.fillRect(x0, y + 7, it.t * sc, rh - 14);
+        if (!it.off) { ctx.fillStyle = it.req ? P.faint : it.conc && o.conc ? P.accent2 : P.accent; ctx.fillRect(x0, y + 7, te * sc, rh - 14); }
+        else { ctx.strokeStyle = P.bad; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(x0, y + rh / 2); ctx.lineTo(x0 + it.t * sc, y + rh / 2); ctx.stroke(); }
+        let tag = it.off ? "제거" : te.toFixed(2) + " s";
+        if (it.req) tag += " · 필수"; else if (it.conc && o.conc && !it.off) tag += small ? " ∥" : " · 동시";
+        text(ctx, tag, x0 + Math.max(te, it.off ? it.t : te) * sc + 6, y + rh / 2, it.off ? P.bad : P.dim, "left", fs - 1, true);
+        cum += it.t;
+        if (!small) text(ctx, "누적 " + Math.round(100 * cum / T0) + "%", w - 8, y + rh / 2, P.faint, "right", 11, true);
+      });
+      const yb = top + sorted.length * rh + 18, now = total(list, o);
+      text(ctx, "T₁ = " + now.toFixed(2) + " s (기준 " + T0.toFixed(2) + " s, " + (now < T0 ? "−" : "") + Math.round(100 * Math.abs(1 - now / T0)) + "%)", 10, yb, P.text, "left", fs, true, 600);
+      text(ctx, small ? "막대를 눌러 항목 제거/복원" : "막대를 눌러 항목을 빼거나 되돌린다", w - 8, yb, P.dim, "right", fs - 1);
+    }, { get height() { return 34 + (ins === "ws" ? WS : FT).length * 30 + 34; } });
+    function upd() {
+      cv.resize();
+      const M = metrics(), d = 1 - M.c / BASE;
+      TB.stat("pa-o-ws", M.tw.toFixed(2) + "<small> s</small>");
+      TB.stat("pa-o-ft", M.tf.toFixed(2) + "<small> s</small>");
+      TB.stat("pa-o-c", money(M.c) + "<small> (" + (d >= 0 ? "−" : "+") + Math.abs(d * 100).toFixed(0) + "%)</small>");
+      TB.stat("pa-o-pk", money(M.pk) + "<small>/개</small>");
+      TB.stat("pa-o-dp", "+" + M.dp + "<small> DPPM</small>");
+      TB.stat("pa-o-ec", money(M.dp * 1e-6 * 500) + "<small>/개</small>");
+      const ok = d >= 0.25 && M.dp <= 5 && M.pk <= 0.005;
+      TB.stat("pa-o-goal", ok ? '<span class="goal-ok">달성! 시간 기법만으로 비용을 줄이고 품질을 지켰다.</span>' :
+        '<span class="goal-bad">미달</span> — 비용 ' + (d * 100).toFixed(0) + "% 절감, DPPM +" + M.dp + ", 패키지 낭비 " + money(M.pk));
+    }
+    $("pa-cv").addEventListener("click", (e) => {
+      const [, py] = WM.pos($("pa-cv"), e), r = rows.find((q) => py >= q.y && py < q.y + 30);
+      if (r && !r.it.req) { r.it.off = !r.it.off; upd(); }
+    });
+    TB.seg("pa-ins", (v) => { ins = v; upd(); });
+    ["pa-conc", "pa-comp", "pa-srch", "pa-mb"].forEach((id) => $(id).addEventListener("change", upd));
+    $("pa-reset").addEventListener("click", () => { WS.concat(FT).forEach((it) => (it.off = false)); ["pa-conc", "pa-comp", "pa-srch", "pa-mb"].forEach((id) => ($(id).checked = false)); upd(); });
+    upd();
+  })();
+
+  /* ------------------------------------------------------------ 5. 적응형 테스트 */
+  (function () {
+    const W = WM.wafer({ dieW: 9, dieH: 9, shot: [3, 3] });
+    let seed = 3, zs = [], perm = [], lot = [], sel = -1, cells = [];
+    const rTh = TB.range("ad-th", (v) => v.toFixed(1) + "%", () => upd());
+    const rSg = TB.range("ad-sg", (v) => v.toFixed(2), () => { build(); upd(); });
+    const mode = TB.seg("ad-mode", () => upd());
+    function newLot() {
+      const rnd = TB.rng(seed * 977 + 5); zs = []; perm = [];
+      for (let i = 0; i < 25; i++) { const u1 = Math.max(1e-9, rnd()), u2 = rnd(); zs.push(Math.sqrt(-2 * Math.log(u1)) * Math.cos(2 * Math.PI * u2)); perm.push(i); }
+      for (let i = 24; i > 0; i--) { const j = Math.floor(rnd() * (i + 1)); [perm[i], perm[j]] = [perm[j], perm[i]]; }
+      build();
+    }
+    function build() {
+      const sg = rSg();
+      lot = zs.map((z, i) => { const D = 0.2 * Math.exp(sg * z - sg * sg / 2), map = WM.map(W, { d0: D, seed: seed * 100 + i }); return { D, map, ye: map.yield, u: 0.0003 * Math.pow(D / 0.2, 3) }; });
+    }
+    function skips() {
+      const th = rTh() / 100, corr = lot.map((L) => L.ye >= th);
+      if (mode() === "corr") return corr;
+      const k = corr.filter(Boolean).length, out = lot.map(() => false);
+      for (let i = 0; i < k; i++) out[perm[i]] = true;
+      return out;
+    }
+    const view = $("ad-cv").parentElement;
+    const cv = TB.canvas($("ad-cv"), (ctx, w, h) => {
+      const P = TB.palette(), small = w < 560, sk = skips(), gs = small ? w - 8 : Math.min(h, w * 0.5), cs = gs / 5;
+      cells = [];
+      lot.forEach((L, i) => {
+        const cx = 4 + (i % 5) * cs, cy = 4 + Math.floor(i / 5) * cs, b = { x: cx + 2, y: cy + 2, w: cs - 4, h: cs - 16 };
+        cells.push({ x: cx, y: cy, s: cs, i });
+        WM.draw(ctx, W, b, { map: L.map, pad: 1, notch: false });
+        if (sk[i]) { ctx.strokeStyle = P.warn; ctx.lineWidth = 2.5; ctx.strokeRect(cx + 1.5, cy + 1.5, cs - 3, cs - 3); }
+        if (i === sel) { ctx.strokeStyle = P.text; ctx.lineWidth = 2; ctx.strokeRect(cx + 0.5, cy + 0.5, cs - 1, cs - 1); }
+        text(ctx, (L.ye * 100).toFixed(0) + "%" + (sk[i] ? " 생략" : ""), cx + cs / 2, cy + cs - 7, sk[i] ? P.warn : P.dim, "center", small ? 9.5 : 10.5, true);
+      });
+      const bx = small ? { x: 56, y: gs + 30, w: w - 56 - 14, h: h - gs - 30 - 46 } : { x: gs + 58, y: 24, w: w - gs - 58 - 14, h: h - 24 - 46 };
+      const xs = lot.map((L) => L.ye * 100), xmin = Math.floor(Math.min(...xs, rTh()) / 5) * 5 - 1, umax = Math.max(...lot.map((L) => L.u * 1e6)) * 1.15;
+      text(ctx, "이른 수율 vs 비싼 항목의 고유 불량", bx.x - 40, bx.y - 12, P.text, "left", small ? 11 : 12, false, 600);
+      TB.chart(ctx, bx, { x: [xmin, 100], y: [0, umax], xLabel: "이른 항목 수율 (%)", yLabel: "고유 불량 (ppm)", yFmt: (v) => String(Math.round(v)),
+        vlines: mode() === "corr" ? [{ x: rTh(), color: P.faint }] : [],
+        points: lot.map((L, i) => ({ x: L.ye * 100, y: L.u * 1e6, color: sk[i] ? P.warn : P.accent2, r: i === sel ? 6 : 4 })) });
+    }, { get aspect() { const w = view.clientWidth || 600; return w < 560 ? (w + 250) / w : 0.5; }, minHeight: 300 });
+    function upd() {
+      const sk = skips(); let ng = 0, saved = 0, esc = 0, n = 0;
+      lot.forEach((L, i) => { const g = L.ye * W.n; ng += g; if (sk[i]) { n++; saved += g * 0.6; esc += g * L.u * 0.1; } });
+      const tPer = saved / (25 * W.n), cPerGood = saved * C_S / ng;
+      TB.stat("ad-o-n", n + "<small> / 25</small>");
+      TB.stat("ad-o-t", tPer.toFixed(3) + "<small> s</small>");
+      TB.stat("ad-o-c", "$" + Math.round(cPerGood * 1e7).toLocaleString("en-US") + "<small>/년</small>");
+      TB.stat("ad-o-dp", "+" + (esc / ng * 1e6).toFixed(2) + "<small> DPPM</small>");
+      if (sel >= 0) { const L = lot[sel]; TB.stat("ad-o-sel", "웨이퍼 " + (sel + 1) + ": D₀ = " + L.D.toFixed(3) + " /cm², 이른 수율 " + (L.ye * 100).toFixed(1) + "%, 비싼 항목의 고유 불량 " + Math.round(L.u * 1e6) + " ppm" + (sk[sel] ? " → 건너뜀" : " → 전체 테스트")); }
+      cv.redraw();
+    }
+    $("ad-cv").addEventListener("click", (e) => {
+      const [px, py] = WM.pos($("ad-cv"), e), c = cells.find((q) => px >= q.x && px < q.x + q.s && py >= q.y && py < q.y + q.s);
+      if (c) { sel = c.i; upd(); }
+    });
+    $("ad-new").addEventListener("click", () => { seed++; sel = -1; newLot(); upd(); TB.stat("ad-o-sel", "웨이퍼 맵을 누르면 그 웨이퍼의 결함 밀도와 비싼 항목의 고유 불량률이 나온다."); });
+    newLot(); upd();
+  })();
+
+  /* ------------------------------------------------------------ 6. NRE */
+  (function () {
+    const PRE = { tb7: [500, 250, 250, 7.477, 0.25], asic: [300, 150, 100, 5.301, 0.4], auto: [800, 400, 900, 7.699, 0.6] };
+    const upd = () => cv.redraw();
+    const ra = TB.range("nre-a", (v) => "$" + v + "k", upd), rb = TB.range("nre-b", (v) => "$" + v + "k", upd), rc = TB.range("nre-c", (v) => "$" + v + "k", upd);
+    const rv = TB.range("nre-v", (v) => { const x = Math.pow(10, v); return x >= 1e6 ? (x / 1e6).toFixed(1) + "M 개" : (x / 1e3).toFixed(0) + "k 개"; }, upd);
+    const rr = TB.range("nre-r", (v) => "$" + v.toFixed(2), upd);
+    TB.seg("nre-p", (k) => { const p = PRE[k]; ra.set(p[0]); rb.set(p[1]); rc.set(p[2]); rv.set(p[3]); rr.set(p[4]); });
+    const cv = TB.canvas($("nre-cv"), (ctx, w, h) => {
+      const P = TB.palette(), nre = (ra() + rb() + rc()) * 1000, V = Math.pow(10, rv()), r = rr(), pts = [];
+      for (let e = 4; e <= 8.5; e += 0.05) pts.push(Math.pow(10, e));
+      TB.chart(ctx, { x: 64, y: 14, w: w - 64 - 14, h: h - 14 - 50 }, { x: [1e4, 3e8], y: [1e-3, 1e3], logX: true, logY: true, xLabel: "수명 생산량 (개)", yLabel: "개당 비용 ($)",
+        xFmt: (v) => (v >= 1e6 ? v / 1e6 + "M" : v / 1e3 + "k"), yFmt: (v) => "$" + (v >= 1 ? v : v.toString()),
+        series: [{ data: pts.map((x) => [x, nre / x]), color: P.warn, width: 2 }, { data: pts.map((x) => [x, nre / x + r]), color: P.accent, width: 2.6 }],
+        hlines: [{ y: r, color: P.accent2, label: "반복 비용" }], vlines: [{ x: nre / r, color: P.faint }],
+        points: [{ x: V, y: nre / V + r, color: P.accent, r: 6, label: money(nre / V + r) }] });
+      TB.stat("nre-o-t", big(nre)); TB.stat("nre-o-u", money(nre / V)); TB.stat("nre-o-a", money(nre / V + r));
+      const x = nre / r; TB.stat("nre-o-x", x >= 1e6 ? (x / 1e6).toFixed(1) + "M 개" : (x / 1e3).toFixed(0) + "k 개");
+    }, { aspect: 0.62, minHeight: 280, maxHeight: 420 });
+  })();
+})();
+</script>
+</body>
+</html>

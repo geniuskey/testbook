@@ -33,7 +33,7 @@
   .stat.wide { grid-column: 1 / -1; }
   .stat.wide .v { font-size: 14px; font-weight: 500; line-height: 1.6; }
   #fx-cv, #oe-cv { cursor: pointer; }
-  .ov-map { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); padding: 16px; }
+  .ov-map { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(max(150px, 30%), 1fr)); padding: 16px; }
   .ov-map .col { border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--surface); padding: 10px; display: grid; gap: 6px; align-content: start; }
   .ov-map .col h5 { margin: 0 0 4px; font-size: 13px; color: var(--text-dim); font-weight: 600; }
   .ov-map .col h5 b { display: block; color: var(--text); font-size: 14px; }
@@ -669,7 +669,7 @@
     const m = c.match(/rgba?\(([^)]+)\)/); if (m) { const p = m[1].split(",").map((s) => parseFloat(s)); return `rgba(${p[0]},${p[1]},${p[2]},${a})`; }
     return c;
   };
-  const nines = (n) => { const t = 100 - 100 * Math.pow(10, -n); return (t >= 99.99 ? t.toFixed(3) : t >= 99.9 ? t.toFixed(2) : t >= 99 ? t.toFixed(1) : t.toFixed(0)) + "%"; };
+  const nines = (n) => { const t = 100 - 100 * Math.pow(10, -n), d = Math.max(0, Math.ceil(n - 1e-6) - 2); return t.toFixed(d) + "%"; };
 
   /* ================================================================ 결함에서 폴트로 */
   (function () {
@@ -985,14 +985,14 @@
       const xs = []; for (let x = 1; x <= 5.0001; x += 0.02) xs.push(x);
       const fam = [0.5, 0.7, 0.85, 0.95].map((y, i) => ({ data: xs.map((x) => [x, DL(y, 1 - Math.pow(10, -x)) * 1e6]), color: alpha(P.dim, 0.55), width: 1.2, dash: [3, 3], y }));
       const pts = [{ x: n, y: DL(Y, T) * 1e6, color: P.accent, r: 5 }];
-      const box = { x: 62, y: 14, w: w - 80, h: h - 62 };
+      const box = { x: 62, y: 14, w: w - 100, h: h - 62 };
       const c = TB.chart(ctx, box, {
         x: [1, 5], y: [0.5, 3e5], logY: true, xTicks: [1, 2, 3, 4, 5], xFmt: (x) => nines(x), yFmt: (v) => (v >= 1e3 ? v / 1e3 + "k" : String(v)),
         xLabel: "결함 커버리지 T", yLabel: "결함 수준 (DPPM)",
         series: fam.concat([{ data: xs.map((x) => [x, DL(Y, 1 - Math.pow(10, -x)) * 1e6]), color: P.accent, width: 2.6 }]),
         hlines: [{ y: 50, color: P.ok, label: "50 DPPM" }], points: pts,
       });
-      fam.forEach((f) => { const yy = c.Y(f.data[0][1]); if (yy > box.y + 8) text(ctx, "Y=" + (f.y * 100).toFixed(0) + "%", box.x + 4, yy - 7, P.dim, "left", 10, true); });
+      let lastY = -99; fam.forEach((f) => { const xx = w < 520 ? 2.6 : 1.15, yy = c.Y(DL(f.y, 1 - Math.pow(10, -xx)) * 1e6); if (yy > box.y + 8 && yy - lastY > 12) { text(ctx, "Y=" + (f.y * 100).toFixed(0) + "%", c.X(xx) + 4, yy - 8, P.dim, "left", 10, true); lastY = yy; } });
       if (mc.n > 0) {
         const pass = mc.pass, e = mc.esc, est = (e / pass) * 1e6;
         const lo = e > 0 ? (Math.max(0, e - 1.96 * Math.sqrt(e)) / pass) * 1e6 : 0, hi = ((e + 1.96 * Math.sqrt(Math.max(e, 1)) + (e ? 0 : 2)) / pass) * 1e6;
@@ -1058,7 +1058,7 @@
     let C = null, drag = false;
     const cv = TB.canvas($("oe-cv"), (ctx, w, h) => {
       const P = TB.palette(), narrow = w < 560, L = lim();
-      const pw = narrow ? w - 70 : w * 0.62, box = { x: 56, y: 14, w: pw - 56, h: narrow ? h * 0.58 : h - 60 };
+      const pw = narrow ? w - 70 : w * 0.62, box = { x: 56, y: 14, w: pw - 56, h: narrow ? h * 0.5 : h - 60 };
       C = TB.chart(ctx, box, { x: [18, 64], y: [18, 64], xLabel: "실제 전류 (mA)", yLabel: "측정 전류 (mA)", xTicks: [20, 30, 40, 50, 60], yTicks: [20, 30, 40, 50, 60],
         bands: [] });
       const cols = { tp: alpha(P.ok, 0.55), ok: P.warn, es: P.bad, tr: alpha(P.accent2, 0.55) };
@@ -1084,7 +1084,7 @@
       const f = (v) => (v >= 0.01 ? pct(v, 2) : (v * 1e6).toFixed(0) + " ppm");
       cell(0, 0, "좋음·합격", f(R.TP), P.ok); cell(0, 1, "좋음·불합격", f(R.OK), P.warn);
       cell(1, 0, "불량·합격", f(R.ES), P.bad); cell(1, 1, "불량·불합격", f(R.TR), P.accent2);
-    }, { get aspect() { const w = $("oe-cv").parentElement.clientWidth || 600; return w < 560 ? 1.15 : 0.5; } });
+    }, { get aspect() { const w = $("oe-cv").parentElement.clientWidth || 600; return w < 560 ? 1.45 : 0.5; } });
     function upd() {
       const R = rates();
       TB.stat("oe-o-ok", pct(R.over, 2));
@@ -1122,9 +1122,9 @@
       TB.chart(ctx, { x: 56, y: 14, w: w - 72, h: h - 62 }, { x: [0, 36], y: [0, ymax], xTicks: [0, 6, 12, 18, 24, 30, 36], xLabel: "출하 후 개월", yLabel: "누적 고장 (개)",
         yFmt: (v) => (v >= 1000 ? v / 1000 + "k" : String(v)),
         series: [{ data: s3, color: P.accent2, width: 2, fill: alpha(P.accent2, 0.15) }, { data: s2, color: P.warn, width: 2, fill: alpha(P.warn, 0.2) }, { data: s1, color: P.bad, width: 2, fill: alpha(P.bad, 0.25) }] });
-      text(ctx, "우발(FIT)", w - 18, 24, P.accent2, "right", 11, true, 700);
-      text(ctx, "초기 고장", w - 18, 40, P.warn, "right", 11, true, 700);
-      text(ctx, "시간 0(DPPM)", w - 18, 56, P.bad, "right", 11, true, 700);
+      text(ctx, "우발(FIT)", 66, 24, P.accent2, "left", 11, true, 700);
+      text(ctx, "초기 고장", 66, 40, P.warn, "left", 11, true, 700);
+      text(ctx, "시간 0(DPPM)", 66, 56, P.bad, "left", 11, true, 700);
     }, { aspect: 0.7, minHeight: 260, maxHeight: 400 });
     function upd() {
       const a = parts(36), tot = a[0] + a[1] + a[2];
