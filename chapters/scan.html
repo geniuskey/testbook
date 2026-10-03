@@ -726,6 +726,7 @@
     }
     const geo = (w) => { const narrow = w < 520, lw = narrow ? 34 : 70, cw = Math.min(46, (w - lw - 12) / NT); return { narrow, lw, cw, top: 30, gx: lw + (w - lw - 12 - cw * NT) / 2 }; };
     const cv = TB.canvas($("xm-cv"), (ctx, w, h) => {
+      if (!err) return;
       const P = TB.palette(), G = geo(w), O = outs(), cw = G.cw, ch = Math.min(cw * 0.8, 30), fs = Math.max(10, Math.min(13, cw * 0.38));
       text(ctx, "시프트 순번 →", G.gx, 14, P.dim, "left", 11);
       for (let c = 0; c < NC; c++) {
@@ -798,6 +799,7 @@
     const alphaIn = (s) => { let t = 0; for (let i = 1; i < s.length; i++) if (s[i] !== s[i - 1]) t++; return t / (s.length - 1); };
     const drop = (a, fMHz) => { const aeff = (a + AOUT) / 2, P = NFF * V * V * fMHz * 1e6 * (CCLK + aeff * CD); return { P, I: P / V, dV: (P / V) * RG }; };
     const cv = TB.canvas($("sp-cv"), (ctx, w, h) => {
+      if (!care) return;
       const P = TB.palette(), narrow = w < 520, m = fill(), s = stream(m), n = narrow ? 32 : 64, bw = (w - 24) / n;
       text(ctx, "체인 앞부분 " + n + "비트 (테두리: 케어 비트, 아래 눈금: 토글)", 12, 12, P.dim, "left", 11);
       for (let i = 0; i < n; i++) {

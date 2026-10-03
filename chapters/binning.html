@@ -274,14 +274,14 @@
         <path class="f-acc2-soft" d="M60 150C90 150 100 50 125 50C150 50 160 150 190 150Z"/>
         <circle class="f-bad" cx="232" cy="146" r="4"/><circle class="f-bad" cx="246" cy="146" r="4"/>
         <path class="s-acc" stroke-width="2" d="M200 40V150"/><text class="lbl-acc" x="204" y="54">PAT +6σ</text>
-        <path class="s-bad" stroke-width="2" d="M320 40V150"/><text class="lbl-bad" x="316" y="54" text-anchor="end">규격 60 mA</text>
+        <path class="s-bad" stroke-width="2" d="M320 40V150"/><text class="lbl-bad" x="316" y="34" text-anchor="end">규격 60 mA</text>
         <text class="lbl-dim" x="240" y="172" text-anchor="middle">규격 안 이상치</text>
         <text class="lbl-dim" x="125" y="172" text-anchor="middle">정상 분포</text>
         <text class="lbl-b" x="380" y="22">정적 PAT vs 동적 PAT</text>
         <path class="s-axis" d="M380 150H700"/>
         <g class="f-acc2-soft"><rect x="392" y="96" width="40" height="40" rx="3"/><rect x="452" y="82" width="40" height="40" rx="3"/><rect x="512" y="100" width="40" height="40" rx="3"/><rect x="572" y="62" width="40" height="40" rx="3"/><rect x="632" y="90" width="40" height="40" rx="3"/></g>
         <circle class="f-bad" cx="412" cy="74" r="4"/><circle class="f-bad" cx="592" cy="40" r="4"/>
-        <path class="s-acc" stroke-dasharray="6 4" d="M380 38H700"/><text class="lbl-acc" x="696" y="34" text-anchor="end">정적: 기준 로트들로 정한 한 줄</text>
+        <path class="s-acc" stroke-dasharray="6 4" d="M380 38H700"/><text class="lbl-acc" x="696" y="56" text-anchor="end">정적 한계</text>
         <path class="s-acc2" stroke-width="2" d="M392 80H432M452 66H492M512 84H552M572 46H612M632 74H672"/>
         <text class="lbl-acc2" x="380" y="172">동적: 웨이퍼마다 다시 계산</text>
         <text class="t-mono" x="412" y="124" text-anchor="middle">W1</text>
@@ -345,8 +345,8 @@
         </g>
         <g transform="translate(250 36)" class="f-acc2-soft"><rect x="28" y="28" width="26" height="26"/><rect x="56" y="28" width="26" height="26"/><rect x="84" y="28" width="26" height="26"/><rect x="28" y="56" width="26" height="26"/><rect x="84" y="56" width="26" height="26"/><rect x="28" y="84" width="26" height="26"/><rect x="56" y="84" width="26" height="26"/><rect x="84" y="84" width="26" height="26"/></g>
         <rect class="f-acc-soft" x="306" y="92" width="26" height="26" stroke-width="3"/>
-        <text class="lbl-dim" x="250" y="200">가까운 이웃 가중 1, 바깥 고리 0.5</text>
-        <text class="lbl-dim" x="250" y="222">구역(zone): 가장자리 다이는 이웃이 적다</text>
+        <text class="lbl-dim" x="250" y="200">가까운 이웃 1, 바깥 고리 0.5</text>
+        <text class="lbl-dim" x="250" y="222">구역: 가장자리는 이웃이 적다</text>
         <text class="lbl-b" x="470" y="22">NNR: 이웃 값으로 예측한 잔차</text>
         <path class="s-axis" d="M480 180H700M480 40V180"/>
         <path class="s-acc2" d="M490 150C540 140 600 110 690 70"/>
@@ -458,7 +458,7 @@
         <rect class="f-ok-soft" x="580" y="40" width="120" height="40" rx="8"/><text class="lbl" x="640" y="65" text-anchor="middle">회복 → 빈 1</text>
         <rect class="f-bad-soft" x="580" y="140" width="120" height="40" rx="8"/><text class="lbl" x="640" y="165" text-anchor="middle">다시 실패 → 확정</text>
         <path class="s-line" marker-end="url(#bn-ar4)" d="M532 100L576 64M532 120L576 156"/>
-        <text class="lbl-dim" x="350" y="220">결함 빈은 재테스트하지 않는다 · 회복률을 사이트·카드별로 감시</text>
+        <text class="lbl-dim" x="360" y="220" text-anchor="middle">결함 빈은 재테스트하지 않는다 · 회복률을 사이트·카드별로 감시</text>
       </svg>
       <figcaption><b>재테스트 흐름.</b> 접촉 문제로 생길 수 있는 빈만 한 번 다시 잰다. 회복된 다이는 합격으로, 다시 실패한 다이는 확정 불량으로 간다. 결함이 분명한 빈(기능·메모리·전원 단락)을 다시 재는 것은 시간 낭비이자 위험이다.</figcaption>
     </figure>
@@ -846,7 +846,7 @@
       view = WM.draw(ctx, W, { x: 0, y: 0, w: ms, h: ms }, { fill, hi, sel });
       // 오른쪽(또는 아래) 패널
       const pane = nr ? { x: 10, y: ms + 10, w: w - 20, h: h - ms - 14 } : { x: ms + 16, y: 10, w: w - ms - 26, h: h - 20 };
-      const zw = nr ? Math.min(pane.w * 0.38, pane.h - 20) : Math.min(pane.w, pane.h * 0.42);
+      const zw = nr ? Math.min(pane.w * 0.38, 110) : Math.min(pane.w, pane.h * 0.42);
       const zb = { x: pane.x, y: pane.y + 16, s: zw / 3 };
       text(ctx, sel >= 0 ? "선택한 다이의 3 × 3 이웃" : "맵의 다이를 눌러 보자", zb.x, pane.y + 4, P.dim, "left", nr ? 10 : 12);
       if (sel >= 0) {
@@ -867,7 +867,7 @@
       }
       // 곡선
       if (!agg) return;
-      const cb = nr ? { x: pane.x + zw + 12 + 34, y: zb.y + 64, w: pane.w - zw - 12 - 34 - 6, h: pane.h - 64 - 44 } : { x: pane.x + 34, y: zb.y + zw + 80, w: pane.w - 40, h: pane.h - zw - 80 - 40 };
+      const cb = nr ? { x: pane.x + 34, y: zb.y + zw + 30, w: pane.w - 44, h: pane.h - zw - 30 - 16 - 30 } : { x: pane.x + 34, y: zb.y + zw + 80, w: pane.w - 40, h: pane.h - zw - 80 - 40 };
       if (cb.h < 40 || cb.w < 60) return;
       const ag = agg.filter((r) => r.K >= 2), mc = Math.max(0.02, ...ag.map((r) => r.cost)) * 1.1;
       const X = (v) => cb.x + (v / mc) * cb.w, Y = (v) => cb.y + cb.h - v * cb.h;
@@ -877,7 +877,7 @@
       text(ctx, "수율 비용 (25장) → " + pct(mc, 1), cb.x + cb.w, cb.y + cb.h + 12, P.dim, "right", 10);
       ctx.strokeStyle = P.accent; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(X(0), Y(0)); ag.slice().reverse().forEach((r) => ctx.lineTo(X(r.cost), Y(r.cap))); ctx.stroke();
       ag.forEach((r) => { const on = r.K === gK(); ctx.fillStyle = on ? P.accent : P.bg; ctx.strokeStyle = P.accent; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.arc(X(r.cost), Y(r.cap), on ? 5 : 3, 0, 7); ctx.fill(); ctx.stroke(); if (on || r.K === 2 || r.K === 8) text(ctx, "k=" + r.K, X(r.cost) + 6, Y(r.cap) + (r.K === 2 ? 8 : -8), P.text, "left", 10, true); });
-    }, { get aspect() { const w = $("gd-cv").parentElement.clientWidth || 600; return w < 560 ? (w + 190) / w : 0.56; }, minHeight: 360 });
+    }, { get aspect() { const w = $("gd-cv").parentElement.clientWidth || 600; return w < 560 ? (w + 330) / w : 0.56; }, minHeight: 360 });
     $("gd-cv").addEventListener("click", (e) => { if (!view) return; const [x, y] = cpos($("gd-cv"), e); const k = view.at(x, y); if (k >= 0) { sel = k; cv.redraw(); } });
     function upd() {
       if (!agg) agg = aggregate();
