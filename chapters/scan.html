@@ -552,7 +552,7 @@
       }
       // 출력 기록
       const oy = top + NC * rh + 14;
-      text(ctx, "스캔 출력 기록 (오른쪽이 최신) · 초록 일치 · 빨강 불일치 · 회색 비교 안 함", lw, oy, P.dim, "left", narrow ? 10 : 11.5);
+      text(ctx, narrow ? "출력 기록: 초록 일치 · 빨강 불일치" : "스캔 출력 기록 (오른쪽이 최신) · 초록 일치 · 빨강 불일치 · 회색 비교 안 함", narrow ? 4 : lw, oy, P.dim, "left", narrow ? 10 : 11.5);
       const os = Math.min(18, (w - lw - 10) / 15);
       for (let c = 0; c < NC; c++) {
         const y = oy + 16 + c * (os + 5) + os / 2;
@@ -686,7 +686,7 @@
       seg(3, [[A[0], 0], [arr, 0], [arr + 1, 1], [B[1], 1]], SC.grn);
       const capOk = S.ok;
       text(ctx, capOk ? "SE = 0 → 캡처 성공" : "SE가 아직 1 → 캡처 대신 시프트", bx0 + 6, y0 + rh * 3.3, capOk ? SC.grn : SC.red, "left", fs, false, 700);
-      if (!S.los) text(ctx, "OCC가 PLL에서 두 펄스", (bx0 + rx) / 2, h - 18, SC.dim, "center", 10.5);
+      if (!S.los && !narrow) text(ctx, "OCC가 PLL에서 두 펄스", (bx0 + rx) / 2, h - 18, SC.dim, "center", 10.5);
     }, { aspect: 0.5, minHeight: 260, maxHeight: 360 });
     function draw() {
       const S = state();
@@ -831,14 +831,22 @@
     const N = 32, act = TB.seg("bk-act"), val = TB.seg("bk-val"), cand = $("bk-cand");
     let k, v, lo, hi, tries, done, reveal, lastJ, lastStream, knownV;
     function newGame() { k = Math.floor(Math.random() * N); v = Math.random() < 0.5 ? 0 : 1; lo = 0; hi = N - 1; tries = 0; done = false; reveal = false; lastJ = -1; lastStream = null; knownV = null; update("새 체인이다. 체인 테스트로 시작하자."); }
-    const geo = (w) => { const per = 16, lw = 30, cw = (w - lw - 34) / per; return { per, lw, cw, rh: 60, top: 26 }; };
+    const geo = (w) => { const per = w < 520 ? 8 : 16, lw = 30, cw = (w - lw - 34) / per; return { per, rows: N / per, lw, cw, rh: w < 520 ? 52 : 60, top: 26 }; };
     const pos = (G, i) => { const r = Math.floor(i / G.per), c = i % G.per; return [G.lw + c * G.cw + G.cw / 2, G.top + r * G.rh + 22]; };
     const cv = TB.canvas($("bk-cv"), (ctx, w, h) => {
       const P = TB.palette(), G = geo(w), bs = Math.min(G.cw * 0.78, 34), fs = Math.max(9, Math.min(12, G.cw * 0.4));
       // 연결선
       ctx.strokeStyle = P.faint; ctx.lineWidth = 1.4; ctx.beginPath();
-      const [x0, y0] = pos(G, 0), [x15, y15] = pos(G, 15), [x16, y16] = pos(G, 16), [x31, y31] = pos(G, 31);
-      ctx.moveTo(4, y0); ctx.lineTo(x15, y15); ctx.lineTo(x15 + G.cw / 2 + 6, y15); ctx.lineTo(x15 + G.cw / 2 + 6, (y15 + y16) / 2); ctx.lineTo(G.lw - 10, (y15 + y16) / 2); ctx.lineTo(G.lw - 10, y16); ctx.lineTo(x31 + G.cw, y31); ctx.stroke();
+      const [x0, y0] = pos(G, 0), [x31, y31] = pos(G, N - 1);
+      ctx.moveTo(4, y0);
+      for (let r = 0; r < G.rows; r++) {
+        const [xa, ya] = pos(G, r * G.per), [xb, yb] = pos(G, r * G.per + G.per - 1);
+        if (r) ctx.lineTo(G.lw - 10, ya);
+        ctx.lineTo(xb, yb);
+        if (r < G.rows - 1) { const yn = pos(G, (r + 1) * G.per)[1]; ctx.lineTo(xb + G.cw / 2 + 6, yb); ctx.lineTo(xb + G.cw / 2 + 6, (yb + yn) / 2); ctx.lineTo(G.lw - 10, (yb + yn) / 2); }
+        else ctx.lineTo(x31 + G.cw, y31);
+      }
+      ctx.stroke();
       text(ctx, "SI", 4, y0 - 14, P.accent, "left", 11, true, 700); text(ctx, "SO", w - 4, y31 - 14, P.accent2, "right", 11, true, 700);
       for (let i = 0; i < N; i++) {
         const [x, y] = pos(G, i), inC = i >= lo && i <= hi;
@@ -849,13 +857,13 @@
       }
       if (reveal || done) { const [x, y] = pos(G, k); ctx.strokeStyle = P.bad; ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(x + bs / 2 - 2, y - 9); ctx.lineTo(x + bs / 2 + 8, y + 9); ctx.moveTo(x + bs / 2 + 8, y - 9); ctx.lineTo(x + bs / 2 - 2, y + 9); ctx.stroke(); text(ctx, "SA" + v, x, y + bs / 2 + 10, P.bad, "center", 11, true, 700); }
       // 출력 스트림
-      const sy = G.top + 2 * G.rh + 18;
+      const sy = G.top + G.rows * G.rh + 6;
       text(ctx, "언로드 (SO에 먼저 나온 비트가 왼쪽)", 4, sy, P.dim, "left", 11);
       if (lastStream) {
         const sw = Math.min(18, (w - 8) / N);
         lastStream.forEach((b, n) => { const x = 4 + n * sw; ctx.fillStyle = b.hi ? P.accent : b.v ? P.dim : P.surface; ctx.fillRect(x, sy + 10, sw - 2, 18); text(ctx, String(b.v), x + (sw - 2) / 2, sy + 19.5, b.hi ? "#fff" : b.v ? P.bg : P.dim, "center", Math.min(11, sw * 0.7), true, 700); });
       }
-    }, { height: 204 });
+    }, { get height() { const G = geo($("bk-cv").parentElement.clientWidth || 600); return G.top + G.rows * G.rh + 46; } });
     function update(msg) {
       TB.stat("bk-o-n", String(tries));
       TB.stat("bk-o-b", "6번");
