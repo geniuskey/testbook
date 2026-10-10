@@ -473,10 +473,10 @@
       <li><span class="term">HTOL</span><span class="en">(High temperature operating life)</span>: 3개 로트에서 77개씩 231개를 125 °C 안팎, 최대 동작 전압 이상에서 1,000시간 동작시키고 실패 수를 센다. 무작위·마모 구간의 고장률(FIT)을 보증한다.</li>
       <li><span class="term">ELFR</span><span class="en">(Early life failure rate)</span>: 3개 로트에서 800개씩 약 2,400개를 48~168시간 번인 조건으로 돌린다. 초기 고장 비율(DPPM)을 보증한다.</li>
     </ul>
-    <p>문제는 실패가 0개일 때다. 231개를 1,000시간 돌려 하나도 안 죽었다고 고장률이 0인 것은 아니다. 관측한 소자·시간 안에서는 고장이 우연히 안 났을 수 있으므로, 통계적으로 "이 정도 이하라고 말할 수 있다"는 <strong>신뢰 상한</strong>을 쓴다. 고장이 포아송 과정이라고 보면 실패 \(r\)개를 관측했을 때 고장률의 신뢰 상한은 카이제곱 분포로 쓸 수 있다.</p>
-    <div class="formula">$$\lambda_{U} = \frac{\chi^2_{CL,\;2r+2}}{2\,N\,t\,AF}\times10^{9}\ \text{FIT}$$
-      <div class="where">\(N\): 표본 수 · \(t\): 시험 시간(h) · \(AF\): 시험 조건의 가속 계수 · \(\chi^2_{CL,\nu}\): 자유도 \(\nu\)인 카이제곱 분포의 CL 분위수. 실패 0개, CL 60%이면 \(\chi^2 = 1.83\), 90%이면 4.61</div></div>
-    <p>TB-7을 231개 × 1,000 h, AF 350에서 시험해 실패가 0개면 등가 소자·시간은 \(231\times1000\times350 = 8.1\times10^{7}\) h이고, 60% 신뢰 상한은 \(1.83/(2\times8.1\times10^7) \approx 1.1\times10^{-8}\)/h, 곧 약 11 FIT다. 90%로 올리면 약 28 FIT가 된다. 실패가 1개 나오면 자유도가 4로 늘어 60% 상한이 약 25 FIT가 된다. 표본을 몇 배로 늘리지 않는 한 "몇 FIT 이하"라는 주장은 이 정도가 한계다.</p>
+    <p>문제는 실패가 0개일 때다. 231개를 1,000시간 돌려 하나도 안 죽었다고 고장률이 0인 것은 아니다. 관측한 소자·시간 안에서는 고장이 우연히 안 났을 수 있으므로, 통계적으로 "이 정도 이하라고 말할 수 있다"는 <strong>신뢰 상한</strong>을 쓴다. 일정 고장률의 지수 수명 모형에서, 실제 누적 소자·시간을 사용하면 실패 \(r\)개를 관측했을 때 고장률의 신뢰 상한은 카이제곱 분포로 쓸 수 있다.</p>
+    <div class="formula">$$\lambda_{U} = \frac{\chi^2_{CL,\;2r+2}}{2\,D}\times10^{9}\ \text{FIT}$$
+      <div class="where">\(D=AF[(N-r)t+\sum_i t_i]\): 실제 누적 등가 소자·시간(h). 고장 난 칩은 고장 시각 \(t_i\)까지만 센다. 실패 0이면 \(D=N t AF\). \(N\): 표본 수 · \(t\): 시험 시간(h) · \(AF\): 가속 계수 · \(\chi^2_{CL,\nu}\): 자유도 \(\nu\)인 카이제곱 분포의 CL 분위수. 지수 수명 모형에서 실패 후 교체하지 않는 시험의 양의 실패 수에 대한 χ² 상한은 근사다. 실패 0개, CL 60%이면 \(\chi^2 = 1.83\), 90%이면 4.61</div></div>
+    <p>TB-7을 231개 × 1,000 h, AF 350에서 시험해 실패가 0개면 등가 소자·시간은 \(231\times1000\times350 = 8.1\times10^{7}\) h이고, 60% 신뢰 상한은 \(1.83/(2\times8.1\times10^7) \approx 1.1\times10^{-8}\)/h, 곧 약 11 FIT다. 90%로 올리면 약 28 FIT가 된다. 실패가 1개 나오면 자유도가 4로 늘어, 고장 시각에 따른 소자·시간 감소가 작을 때 60% 상한이 약 25 FIT가 된다. 실제 시험 시간은 <a href="https://www.itl.nist.gov/div898/handbook/apr/section4/apr412.htm">고장 칩의 고장 시각과 생존 칩의 시험 종료 시각을 합산</a>한다. 표본을 몇 배로 늘리지 않는 한 "몇 FIT 이하"라는 주장은 이 정도가 한계다.</p>
 
     <div class="sim" id="sim-fit">
       <div class="sim-head"><span class="sim-tag">SIMULATOR</span><h3>HTOL·ELFR 시험과 χ² 신뢰 상한</h3></div>
@@ -497,9 +497,9 @@
         <div class="stat"><span class="k">관측 실패 r</span><span class="v" id="fit-o-r">—</span></div>
         <div class="stat"><span class="k">χ² 분위수 (자유도)</span><span class="v" id="fit-o-c">—</span></div>
         <div class="stat"><span class="k">신뢰 상한</span><span class="v" id="fit-o-u">—</span></div>
-        <div class="stat"><span class="k">점 추정 (r / 소자·시간)</span><span class="v" id="fit-o-pt">—</span></div>
+        <div class="stat"><span class="k">점 추정 (FIT 또는 DPPM)</span><span class="v" id="fit-o-pt">—</span></div>
       </div>
-      <div class="sim-note">해볼 것: ① 기본값(231개 × 1,008 h, AF 350, 실패 0)에서 60% 상한이 약 11 FIT인 것을 확인한다. 90%로 올리면 2.5배가 된다. ② "시험 실행"을 누르면 숨은 실제 고장률로 시험을 한 번 돌려 본다. 위 격자에서 칩이 시간에 따라 하나씩 죽는다. 실제 20 FIT라도 실패 0개가 자주 나오고, 그때 계산한 상한은 실제보다 낮을 수도 있다. 몇 번 돌려 신뢰 상한이 실제 값을 덮는 비율이 신뢰 수준과 비슷한지 보자. ③ ELFR로 바꾸면 2,400개 × 48 h에서 실패 0이어도 60% 상한이 약 380 ppm이다. 50 DPPM 같은 목표를 시험으로 증명하려면 표본이 얼마나 필요한지 N을 올려 확인한다. (가정: 고장은 포아송 과정, AF는 시험 전체에 하나, ELFR의 DPPM은 시험 기간 \(t\cdot AF\)에 대한 누적 비율.)</div>
+      <div class="sim-note">해볼 것: ① 기본값(231개 × 1,008 h, AF 350, 실패 0)에서 60% 상한이 약 11 FIT인 것을 확인한다. 90%로 올리면 2.5배가 된다. ② "시험 실행"을 누르면 숨은 실제 고장률로 시험을 한 번 돌려 본다. 위 격자에서 칩이 시간에 따라 하나씩 죽는다. 실제 20 FIT라도 실패 0개가 자주 나오고, 그때 계산한 상한은 실제보다 낮을 수도 있다. 몇 번 돌려 신뢰 상한이 실제 값을 덮는 비율이 신뢰 수준과 비슷한지 보자. ③ ELFR로 바꾸면 2,400개 × 48 h에서 실패 0이어도 60% 상한이 약 380 ppm이다. 50 DPPM 같은 목표를 시험으로 증명하려면 표본이 얼마나 필요한지 N을 올려 확인한다. (가정: HTOL은 일정 고장률의 지수 수명과 실패 후 미교체, AF는 시험 전체에 하나다. ELFR의 양의 실패 수 상한은 낮은 불량률에서의 포아송 근사이며, DPPM은 시험 기간 \(t\cdot AF\)에 대한 누적 비율.)</div>
     </div>
 
     <h3>자동차 등급: 0 DPPM을 지향한다</h3>
@@ -592,6 +592,10 @@
     return 1 - Math.exp(-x + a * Math.log(x) - lnGamma(a)) * hh;
   }
   function chi2inv(p, k) { let lo = 0, hi = Math.max(10, k * 5 + 50); for (let i = 0; i < 100; i++) { const m = (lo + hi) / 2; if (gammaP(k / 2, m / 2) < p) lo = m; else hi = m; } return (lo + hi) / 2; }
+  function fitExposure(N, t, af, failures, progress = 1) {
+    const observed = failures.filter(d => d.f <= progress);
+    return ((N - observed.length) * progress + observed.reduce((sum, d) => sum + d.f, 0)) * t * af;
+  }
   const chi2pdf = (x, k) => (x <= 0 ? 0 : Math.exp((k / 2 - 1) * Math.log(x) - x / 2 - (k / 2) * Math.LN2 - lnGamma(k / 2)));
 
   /* ======================================================= 1. 와이블 플롯 */
@@ -884,13 +888,14 @@
 
   /* ======================================================= 6. FIT·ELFR */
   (function () {
-    const mode = TB.seg("fit-mode", (v) => { if (v === "elfr") { gN.set(2400); gT.set(48); } else { gN.set(231); gT.set(1008); } r = 0; done = 0; cover = 0; deaths = []; gTr.set(gTr()); upd(); });
-    const cl = TB.seg("fit-cl", () => upd());
-    const gN = TB.range("fit-n", (v) => v.toLocaleString("en-US") + "개", () => { deaths = []; upd(); }), gT = TB.range("fit-t", (v) => v + " h", () => { deaths = []; upd(); }),
-      gAF = TB.range("fit-af", (v) => v + "×", upd), gTr = TB.range("fit-true", (v) => (mode && mode() === "elfr" ? v * 10 + " ppm" : v + " FIT"), upd);
+    const mode = TB.seg("fit-mode", (v) => { if (v === "elfr") { gN.set(2400); gT.set(48); } else { gN.set(231); gT.set(1008); } gTr.set(gTr()); resetTrial(); });
+    const cl = TB.seg("fit-cl", () => { done = 0; cover = 0; upd(); });
+    const gN = TB.range("fit-n", (v) => v.toLocaleString("en-US") + "개", resetTrial), gT = TB.range("fit-t", (v) => v + " h", resetTrial),
+      gAF = TB.range("fit-af", (v) => v + "×", resetTrial), gTr = TB.range("fit-true", (v) => (mode && mode() === "elfr" ? v * 10 + " ppm" : v + " FIT"), resetTrial);
     let r = 0, deaths = [], prog = 1, running = false, done = 0, cover = 0;
+    function resetTrial() { running = false; prog = 1; r = 0; deaths = []; done = 0; cover = 0; upd(); }
     function result() {
-      const N = gN(), t = gT(), af = gAF(), c = Number(cl()), dof = 2 * r + 2, x = chi2inv(c, dof), dh = N * t * af;
+      const N = gN(), t = gT(), af = gAF(), c = Number(cl()), dof = 2 * r + 2, x = chi2inv(c, dof), dh = fitExposure(N, t, af, deaths, prog);
       return { N, t, af, c, dof, x, dh, lamU: x / (2 * dh), ppmU: 1 - Math.exp(-x / (2 * N)) };
     }
     const cv = TB.canvas($("fit-cv"), (ctx, w, h) => {
@@ -918,8 +923,8 @@
       TB.stat("fit-o-dh", TB.fmt(R.dh, 3) + " h");
       TB.stat("fit-o-r", String(r));
       TB.stat("fit-o-c", R.x.toFixed(2) + " <small>(" + R.dof + ")</small>");
-      TB.stat("fit-o-u", el ? ppm(R.ppmU) : TB.fmt(R.lamU * 1e9, 3) + " FIT");
-      TB.stat("fit-o-pt", el ? ppm(r / R.N) : TB.fmt((r / R.dh) * 1e9, 3) + " FIT");
+      TB.stat("fit-o-u", el ? ppm(R.ppmU) : (R.dh > 0 ? TB.fmt(R.lamU * 1e9, 3) + " FIT" : "—"));
+      TB.stat("fit-o-pt", el ? ppm(r / R.N) : (R.dh > 0 ? TB.fmt((r / R.dh) * 1e9, 3) + " FIT" : "—"));
       cv.redraw();
     }
     function runTest() {
@@ -932,12 +937,12 @@
     const loop = TB.loop($("sim-fit"), (dt) => {
       if (!running) return;
       prog = Math.min(1, prog + dt / 3); r = deaths.filter((d) => d.f <= prog).length;
-      if (prog >= 1) { running = false; done++; const R = result(); const truth = mode() === "elfr" ? gTr() * 1e-5 : gTr() * 1e-9; if ((mode() === "elfr" ? R.ppmU : R.lamU) >= truth) cover++; TB.stat("fit-o-r", r + " <small>(덮음 " + cover + "/" + done + ")</small>"); cv.redraw(); return; }
+      if (prog >= 1) { running = false; done++; const R = result(); const truth = mode() === "elfr" ? gTr() * 1e-5 : gTr() * 1e-9; if ((mode() === "elfr" ? R.ppmU : R.lamU) >= truth) cover++; upd(); TB.stat("fit-o-r", r + " <small>(덮음 " + cover + "/" + done + ")</small>"); return; }
       upd();
     });
     $("fit-run").addEventListener("click", runTest);
-    $("fit-plus").addEventListener("click", () => { running = false; prog = 1; r++; deaths.push({ i: Math.floor(Math.random() * Math.min(gN(), 600)), f: 0.5 }); upd(); });
-    $("fit-minus").addEventListener("click", () => { running = false; prog = 1; if (r > 0) { r--; deaths.pop(); } upd(); });
+    $("fit-plus").addEventListener("click", () => { running = false; prog = 1; done = 0; cover = 0; const used = new Set(deaths.map(d => d.i)); const i = Array.from({ length: gN() }, (_, i) => i).find(i => !used.has(i)); if (i !== undefined) deaths.push({ i, f: 0.5 }); r = deaths.length; upd(); });
+    $("fit-minus").addEventListener("click", () => { running = false; prog = 1; done = 0; cover = 0; deaths.pop(); r = deaths.length; upd(); });
     upd();
   })();
 })();
