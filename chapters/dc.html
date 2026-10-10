@@ -473,9 +473,9 @@
       <div class="quiz-q"><p>TB-7의 정상 다이 IDDQ는 약 20~45 mA에 퍼지고, 브리지 결함은 0.2 mA를 더한다. 가장 효과적인 판정은?</p>
         <div class="opts"><button class="opt">절대 한계를 25 mA로 낮춘다</button><button class="opt">IDDQ 벡터를 1개로 줄여 시간을 아낀다</button><button class="opt">측정 범위를 10 A로 올린다</button><button class="opt" data-correct>벡터 간 차이(ΔIDDQ)로 같은 다이 안에서 비교한다</button></div>
         <div class="quiz-exp">바탕 누설은 다이마다 크게 다르지만 한 다이 안에서는 벡터와 무관하게 거의 일정하다. 브리지는 특정 벡터에서만 켜지므로 최대−최소 차이에 0.2 mA가 그대로 드러난다. 절대 한계 25 mA는 정상 다이 대부분을 버린다.</div></div>
-      <div class="quiz-q"><p>1 µA 범위(R_s = 1 MΩ)로 부하 용량 200 pF인 핀의 누설을 0.1% 정확도로 재려면 대략 얼마를 기다려야 하는가?</p>
+      <div class="quiz-q"><p>시뮬레이터와 같은 누설 저항 6 MΩ에서 1 µA 범위(R_s = 1 MΩ)로 부하 용량 200 pF인 핀의 누설을 0.1% 정확도로 재려면 보수적으로 대략 얼마를 기다려야 하는가?</p>
         <div class="opts"><button class="opt">약 14 µs</button><button class="opt" data-correct>약 1.4 ms</button><button class="opt">약 200 µs</button><button class="opt">약 14 ms</button></div>
-        <div class="quiz-exp">τ = 1 MΩ × 200 pF = 200 µs. e^{−7} ≈ 0.09%이므로 약 7τ ≈ 1.4 ms다. 200 µs(1τ)에서는 충전 전류가 아직 37% 남아 있다.</div></div>
+        <div class="quiz-exp">이 모델의 정착 시정수는 \(\tau=(R_s\parallel R_{leak})C=(1\,\mathrm{M\Omega}\parallel6\,\mathrm{M\Omega})\,200\,\mathrm{pF}\approx171\,\mu\mathrm{s}\)다. 0.1% 잔류까지는 \(-\tau\ln(0.001)\approx1.18\,\mathrm{ms}\)가 필요하므로 약 1.4 ms는 충분하다. 이는 누설 저항을 무시한 \(R_sC\) 근사(7τ≈1.4 ms)를 써도 되는 보수적 대기 시간이다.</div></div>
     </div>
   </section>
 </main>

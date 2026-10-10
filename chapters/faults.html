@@ -585,9 +585,9 @@
       <div class="quiz-q"><p>2입력 OR 게이트의 입력 a가 SA0인 폴트를 출력에서 보이게 하려면 입력을 어떻게 두어야 하는가?</p>
         <div class="opts"><button class="opt" data-correct>a = 1, b = 0</button><button class="opt">a = 0, b = 1</button><button class="opt">a = 1, b = 1</button><button class="opt">a = 0, b = 0</button></div>
         <div class="quiz-exp">활성화를 위해 a는 고착값의 반대인 1이어야 한다. 전파를 위해 다른 입력 b는 OR의 비지배값 0이어야 한다. b = 1이면 출력이 항상 1이라 a의 차이(D)가 가려진다.</div></div>
-      <div class="quiz-q"><p>폴트 100만 개 가운데 검출 96만 개, 테스트 불가로 증명된 폴트 3만 개, 포기 1만 개다. 테스트 커버리지(TC)는?</p>
-        <div class="opts"><button class="opt">96.0%</button><button class="opt">99.0%</button><button class="opt">97.0%</button><button class="opt" data-correct>약 99.0% (96 / 97)</button></div>
-        <div class="quiz-exp">TC = 검출 / (전체 − 테스트 불가) = 96 / 97 ≈ 98.97%. FC는 96%, ATPG 효율은 (96 + 3) / 100 = 99%다. 두 번째 보기 99.0%는 ATPG 효율과 같은 숫자지만 TC의 정의가 아니다. 반올림하면 비슷하지만 근거가 다르다.</div></div>
+      <div class="quiz-q"><p>폴트 100만 개 가운데 검출 96만 개, 테스트 불가로 증명된 폴트 3만 개, 포기 1만 개다. 소수 둘째 자리까지 표시한 테스트 커버리지(TC)는?</p>
+        <div class="opts"><button class="opt">96.00%</button><button class="opt">99.00% (ATPG 효율)</button><button class="opt">97.00%</button><button class="opt" data-correct>98.97% (96 / 97)</button></div>
+        <div class="quiz-exp">TC = 검출 / (전체 − 테스트 불가) = 96 / 97 ≈ 98.97%. FC는 96.00%, ATPG 효율은 (96 + 3) / 100 = 99.00%다. ATPG 효율은 테스트 불가 폴트까지 도구가 결론을 낸 비율이므로 TC와 정의가 다르다.</div></div>
       <div class="quiz-q"><p>무작위 패턴 BIST에서 검출 확률이 1/8,192인 폴트를 약 95% 확률로 잡으려면 대략 몇 개의 패턴이 필요한가?</p>
         <div class="opts"><button class="opt">약 8,000개</button><button class="opt">약 2,700개</button><button class="opt" data-correct>약 25,000개</button><button class="opt">약 1,000,000개</button></div>
         <div class="quiz-exp">남을 확률 (1 − p)<sup>N</sup> ≈ e<sup>−pN</sup> = 0.05에서 N = ln 20 / p ≈ 3 × 8,192 ≈ 24,500개. 8,000개(1/p)에서는 검출 확률이 약 63%에 그친다.</div></div>
